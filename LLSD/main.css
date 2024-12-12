@@ -1,0 +1,187 @@
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	font-family: 'Montserrat', sans-serif;
+}
+#nav {
+    background: #f02c2d;
+    height: 50px;
+    padding: 10px;
+    border-bottom: 3px solid #2e6d8e;
+}
+ #start {
+    font-size: 18px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 3px 3px;
+    margin-right: 10px;
+}
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f02c2d;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-top: 3px solid #2e6d8e;
+}
+.wrapper {
+	min-height: 100vh;
+	display: flex;
+	
+}
+
+.registration_form {
+	background: white;
+	padding: 25px;
+	border-radius: 5px;
+	width: 100%;
+}
+
+
+.form_wrap{
+	margin-top: 15px;
+}
+
+.form_wrap .input_wrap{
+	margin-bottom: 15px;
+}
+
+.form_wrap .input_wrap:last-child{
+	margin-bottom: 0;
+}
+
+.form_wrap .input_wrap label{
+	display: block;
+	margin-bottom: 3px;
+	color: #1a1a1f;
+}
+
+.form_wrap .input_grp{
+	display: flex;
+	justify-content: space-between;
+}
+
+.form_wrap .input_grp  input[type="number"]{
+	width: 165px;
+}
+
+.form_wrap  input[type="number"]{
+	width: 100%;
+	border-radius: 3px;
+	border: 1.3px solid #9597a6;
+	padding: 10px;
+	outline: none;
+  font-weight: bold;
+}
+
+.form_wrap  input[type="number"]:focus{
+	border-color: #2e6d8e;
+	background: #d6e6f1;
+}
+
+.form_wrap ul{
+ border:1px solid rgb(115, 185, 235);
+  width:70%;
+  background: rgb(206, 238, 242);
+  margin-left: 15%;
+	padding: 8px 10px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.form_wrap ul li:first-child{
+	margin-right: 15px;
+}
+
+.form_wrap ul .radio_wrap{
+	position: relative;
+	margin-bottom: 0;
+}
+
+.form_wrap ul .radio_wrap .input_radio{
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+}
+
+.form_wrap ul .radio_wrap span{
+	display: inline-block;
+	font-size: 17px;
+	padding: 3px 15px;
+	border-radius: 15px;
+	color: #101749;
+}
+
+.form_wrap .input_radio:checked ~ span{
+	background: #105ce2;
+  color:white;
+}
+
+.form_wrap .submit_btn{
+	width: 100%;
+	background: #2e6d8e;
+	padding: 10px;
+	border: 0;
+  color:white;
+  font-size:17px;
+	border-radius: 3px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.form_wrap .submit_btn:hover{
+	background: #f02c2d;
+}
+#input {
+    background: #d6e6f1;
+    padding: 5%;
+    border: 1px solid #2e6d8e;
+    border-radius: 20px;
+}
+#output {
+    background: #fee2e2;
+    padding: 5%;
+    border: 1px solid #f02c2d;
+    border-radius: 20px;
+}
+#share {
+  background-color: #c2fbd7;
+  border: 1px solid green;
+  border-radius: 100px;
+  color: green;
+  cursor: pointer;
+  display: none;
+  padding: 7px 20px;
+  text-align: center;
+  margin: 20px;
+}
+#back {
+  background-color: lightgrey;
+  border: 1px solid black;
+  border-radius: 100px;
+  color: black;
+  cursor: pointer;
+  display: none;
+  padding: 7px 20px;
+  text-align: center;
+  margin: -10px;
+}
+#share:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-0deg);
+}
+#sharableDiv {
+    display: none;
+    padding:10px;
+}

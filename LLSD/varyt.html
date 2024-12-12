@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <title>STAMP DUTY CALCULATOR</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="nav">
+      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="../index.html" id="start"><i class='bx bx-home-alt'></i></a>Leave & Licence Stamp Duty</h3>
+      <button style="float: right; color: white; background: #2e6d8e; border: 2px solid white; padding: 5px 7px; border-radius: 10px;">? HELP</button>
+  </div>
+  <div class="wrapper">
+  	<div class="registration_form">
+  		<form id="regform" name="frm1" method="post">
+  			<div class="form_wrap">
+  				<div class="input_wrap">
+  					<label for="period">License Period (in Months)</label>
+  					<input name="month" type="number" id="mo" placeholder="33" disabled>
+  				</div>
+  				<div class="input_wrap">
+  					<label for="rtype">Type of Rent</label>
+  					<input type="radio" class="rr" onclick="window.open('home.html','_self')" value="Fixed"> FIXED RENT
+  					<input style="margin-left: 20px;" type="radio" class="rr" value="Varying" onclick="window.open('option.html','_self')" checked> VARYING RENT
+  				</div>
+
+  				<div class="input_wrap">
+  					<label for="Rent">Rent (in Rupees) - FROM 1 TO 11</label>
+  					<input name="rent" type="number" id="rnt">
+  				</div>
+  				<div class="input_wrap">
+  					<label for="Rent">Rent (in Rupees) - FROM 12 TO 22</label>
+  					<input name="rent2" type="number" id="rnt">
+  				</div>
+  				<div class="input_wrap">
+  					<label for="Rent">Rent (in Rupees) - FROM 23 TO 33</label>
+  					<input name="rent3" type="number" id="rnt">
+  				</div>
+  				<div class="input_wrap">
+  					<label for="Deposits">Refundable Deposit (in Rupees)</label>
+  					<input name="deposit" type="number" id="rd">
+  				</div>
+ 				<div class="input_wrap">
+  					<button type="button" class="submit_btn" onclick="stamp()">CALCULATE</button>
+  				</div>
+  			</div>
+  		</form><br>
+  		 		<div id="sharableDiv">
+  	    <div id="input">
+  	      	<span>LICENSE PERIOD: </span><span style="font-weight: bold; color: #2e6d8e; font-size: 18px;" id="showLP"></span><br>
+  		<span>REFUNDABLE DEPOSIT: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showRD"></span><br>
+  			<span>MONTHLY RENT (1-11): </span><span style="font-weight: bold; color: #f02c2d; font-size: 18px;" id="showMR1"></span><br>
+  		 <span>MONTHLY RENT (12-22): </span><span style="font-weight: bold; color: #f02c2d; font-size: 18px;" id="showMR2"></span><br>  
+  		 <span>MONTHLY RENT (23-33): </span><span style="font-weight: bold; color: #f02c2d; font-size: 18px;" id="showMR3"></span><br>  
+ 
+  	   </div><br>
+  	   <div id="output">
+  		<span>STAMP DUTY: </span><span style="font-weight: bold; color: #2e6d8e; font-size: 18px;" id="showsd"></span><br>
+  		<span>REGISTRATION FEES: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showrf"></span><br>
+  			<span>TOTAL: </span><span style="font-weight: bold; color: #f02c2d; font-size: 22px;" id="showto"></span><br>
+  	</div>
+  </div>
+  <center>	<button id="share">SHARE on WHATSAPP</button><br>
+  <button id="back">BACK</button></center>
+  </div>
+  </div>
+<div id="footer">
+     <p>Developed By <b>Yasir Divde</b></p>
+ </div>
+</body>
+<script>
+    function stamp() {
+        var m=33,r1,r2,d,md,tr,ta,sd,rentone,renttwo,rentthree;
+        var rf=1000,total,totalf;
+        r1=frm1.rent.value;
+        r2=frm1.rent2.value;
+        r3=frm1.rent3.value;
+        d=frm1.deposit.value;
+        rentone=11*r1;
+        renttwo=11*r2;
+        rentthree=11*r3;
+        tr=rentone+renttwo+rentthree;
+        md=d*(m/12)*0.1;
+        ta=md+tr;
+        sd=ta*0.0025;
+        sdf=Math.round(sd);
+        total=sdf+rf;
+        
+        
+              document.getElementById("sharableDiv").style.display = "block";
+document.getElementById("regform").style.display = "none"  
+document.getElementById("share").style.display = "inline-block";
+document.getElementById("back").style.display = "inline-block";        document.getElementById("showsd").innerHTML = sdf;
+document.getElementById("showrf").innerHTML = rf;
+document.getElementById("showto").innerHTML = total;
+document.getElementById("showLP").innerHTML = m;
+document.getElementById("showRD").innerHTML = d;
+document.getElementById("showMR1").innerHTML = r1;
+document.getElementById("showMR2").innerHTML = r2;
+document.getElementById("showMR3").innerHTML = r3;
+}
+</script>
+<script src="share.js"></script>
+</html>
