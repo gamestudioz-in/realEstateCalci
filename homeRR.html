@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+        
+    <!-- ===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+
+    <title>READY RECKONER</title>
+    <style>
+        #city {
+            display: none;
+        }
+        #backArrow {
+            margin-left: 20px;
+            display: none;
+        }
+    </style>
+ </head>
+<body>
+    <div id="nav">
+      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="index.html" id="start"><i class='bx bx-home-alt'></i></a>E-Valuation RR</h3>
+      <button style="float: right; color: white; background: #f02c2d; border: 2px solid white; padding: 5px 7px; border-radius: 10px;" id="help">? HELP</button>
+     </div>
+    <br>
+    <div class="main">
+        <marquee>RATES ARE UPDATED FOR 1st April 2024 to 31st March 2025.</marquee>
+        <div id="refresh"><button id="backArrow"><i class='bx bxs-chevrons-left' ></i>Back</button></div>
+        <div id="type">
+        <h4 style="margin:10px;">Select Property Type:</h4>
+        <center>
+            <button class="button-30" data-content="Flat" onclick="navigate(this)">FLAT</button><br><br>
+           <button class="button-30" data-content="Shop" onclick="navigate(this)">SHOP</button>
+        </center>
+        </div>
+        <div id="city">
+        <h4 style="margin: 10px;">Type: <b style="color: red;" id="sType">Haha</b></h4>
+        <h4 style="margin:10px;">Select City:</h4>
+        <center>
+            <button class="button-30" data-content="kha" onclick="kharghar()">Kharghar</button><br><br>
+           <button class="button-30" data-content="tal" onclick="taloja()">Taloja</button>
+        </center>
+        </div>
+    </div>
+    <div id="footer">
+     <p>Developed By <b>Yasir Divde</b></p>
+ </div>
+<script>
+    var pType;
+    function navigate(button) {
+        if (button.closest('#type')) {
+            pType = button.getAttribute('data-content');
+        } 
+    document.getElementById("type").style.display = "none";
+        document.getElementById("city").style.display = "block"; 
+document.getElementById("sType").innerHTML = pType;
+document.getElementById("backArrow").style.display = "inline-block";
+ }
+ function kharghar() {
+           if (pType == "Flat") {
+               window.location.href = "Kharghar/flat.html";
+           }
+           else {
+               window.location.href = "Kharghar/shop.html";
+           }
+       }
+       function taloja() {
+           if (pType == "Flat") {
+               window.location.href = "Taloja/flat.html";
+           }
+           else {
+               window.location.href = "Taloja/shop.html";
+           }
+       }
+  document.getElementById("refresh").addEventListener('click', function() {
+            location.reload();
+        }); document.getElementById("help").addEventListener('click', function() {
+     window.location.href = '../help.html';
+ });
+        </script>
+</body>
+</html>

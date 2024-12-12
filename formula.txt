@@ -1,0 +1,30 @@
+   var a,g,dep,temp,res,resn,floor,floorR;
+        a=frm1.area.value;
+        temp=a*1.2;
+        floor=frm1.flr.value;
+        g=frm1.ghas.value;
+        if(floor<5) {
+          floorR = 1;
+        }
+        else if(floor>5 && floor<=10) {
+          floorR = 1.05;
+        }
+        else if(floor>10 && floor<=20) {
+          floorR = 1.075;
+        }
+        else {
+          floorR = 1.10;
+        }
+        if(g<3) {
+          dep=0;
+        }
+        if(g>2 && g<=5) {
+          dep=5;
+        }
+        if(g>5) {
+          dep=g;
+        }
+        res=((98900*floorR)-35100)*((100-dep)/100)+35100;
+        resn=res*temp;
+        document.write("<br>Ready Reckoner Value is&ensp;₹" +resn);
+        }

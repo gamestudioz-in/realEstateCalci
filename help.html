@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="style.css">
+        
+    <!-- ===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+
+    <title>READY RECKONER</title>
+    <style>
+        #backArrow {
+            margin-left: 20px;
+        }
+        #helpSection {
+            margin: 20px;
+        }
+        #helpSection p {
+            text-align: justify;
+        }
+ </style>
+ </head>
+<body>
+    <div id="nav">
+      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="index.html" id="start"><i class='bx bx-home-alt'></i></a>E-Valuation RR - Help</h3>
+      <button style="float: right; color: white; background: #f02c2d; border: 2px solid white; padding: 5px 7px; border-radius: 10px;" id="help">? HELP</button>
+  </div>
+    <br>
+    <div class="main">
+        <marquee>RATES ARE UPDATED FOR 1st April 2024 to 31st March 2025.</marquee>
+        <div id="refresh"><button id="backArrow"><i class='bx bxs-chevrons-left' ></i>Back</button></div>
+ <div id="helpSection">
+  <h4>1. Select Sector Number: </h4>
+  <p>
+      Use the dropdown menu to select the appropriate sector number for the property you are evaluating. <br> Each sector represents a predefined geographical division, and the <b>rates may vary</b> depending on the sector selected.   
+  </p><br><hr><br>
+  <h4>2. Carpet Area: </h4>
+  <p>
+      Enter the carpet area of the property in <b>square meters (Sq. Mtr.) </b>as measured or specified in property documents <b>(Index II)</b>. <br> Ensure accurate measurement to avoid discrepancies in valuation.
+ </p><br><hr><br>
+<h4>3. Depreciation / Ghasara: </h4>
+  <p>
+      Depreciation or "Ghasara" accounts for the age of the property and the reduction in its value over time due to wear and tear or obsolescence. <br> Enter the number of years since the property was constructed. <br> <h5>Example: </h5>
+  <p>
+For a building that recieved OC in year 2014: <br>
+Current Year - 2014 = 2024 - 2014 = 10.<br> Therefore, Enter "10" in this field.
+  </p>    
+ </p><br><hr><br>
+<h4>4. Floor Number: </h4>
+  <p>
+ Enter the numerical value of the floor number.<br> For example, ground floor = 0, first floor = 1, second floor = 2, and so on.
+ </p>
+  </div><br><br><br>    
+ <div id="footer">
+     <p>Developed By <b>Yasir Divde</b></p>
+ </div>
+ <script>   document.getElementById("backArrow").addEventListener('click', function() {
+     window.location.href = '../homeRR.html';
+ });
+ document.getElementById("help").addEventListener('click', function() {
+     window.location.href = '../help.html';
+ }); 
+ </script>
+</body>
+</html>
