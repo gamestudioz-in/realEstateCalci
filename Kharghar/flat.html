@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <title>Ready Reckoner Valuation</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div id="nav">
+      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="../index.html" id="start"><i class='bx bx-home-alt'></i></a>E-Valuation RR</h3>
+      <button style="float: right; color: white; background: #f02c2d; border: 2px solid white; padding: 5px 7px; border-radius: 10px;" id="help">? HELP</button>
+  </div>
+  <div class="wrapper">
+  	<div class="registration_form">
+  	    <button id="backArrow"><i class='bx bxs-chevrons-left' ></i>Back</button>
+  	     <button id="showStampDuty"><i class='bx bx-search' ></i>Stamp Duty</button>
+  	     
+   <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <table>
+        <tr>
+          <td>Stamp Duty Charges (Male)</td>
+          <td id="sdMale">3,00,000</td>
+        </tr>
+        <tr>
+          <td>Stamp Duty Charges (Female)</td>
+          <td id="sdFemale">2,50,000</td>
+        </tr>
+        <tr>
+          <td>Registration Fees</td>
+          <td>30,000</td>
+        </tr>
+        <tr>
+            <td colspan="2">One percent rebate on stamp duty for women in Maharashtra State (w.e.f. 01/04/2021)</td>
+        </tr>
+      </table>
+      <br>
+      <button class="close-btn" id="closeModalBtn">Close</button>
+    </div>
+  </div>
+
+  		<form id="valform" name="frm1" method="post">
+  			<div class="form_wrap">
+  					<div class="input_wrap">
+  		  			<label for="location">Location</label>
+ 		       <p style="color: #2e6d8e; background: #d6e6f1; border:1px solid #2e6d8e; padding: 5px 10px; display: inline-block; border-radius: 20px;">Kharghar</p>
+ 			 			<label for="typeLocation">Type</label>
+ 		      <p style="color: #2e6d8e; background: #d6e6f1; border:1px solid #2e6d8e; padding: 5px 10px; display: inline-block; border-radius: 20px;">Flat</p>
+  				</div>
+
+  				<div class="input_wrap">
+   	 			<label for="sector">Select Sector Number</label>
+  	  <select name="sector" required>
+  	      <option value="0">Click to Change</option>
+  	          <option value="1">Sector 1</option>
+  	          <option value="2">Sector 2</option>
+  	          <option value="3">Sector 3</option>
+  	          <option value="4">Sector 4</option>
+  	          <option value="5">Sector 5</option>
+  	          <option value="6">Sector 6</option>
+  	          <option value="7">Sector 7</option>
+  	          <option value="8">Sector 8</option>
+  	          <option value="9">Sector 9</option>
+  	          <option value="10">Sector 10</option>
+  	          <option value="11">Sector 11</option>
+  	          <option value="12">Sector 12</option>
+  	          <option value="13">Sector 13</option>
+  	          <option value="14">Sector 14</option>
+  	          <option value="15">Sector 15</option>
+  	          <option value="16">Sector 16</option>
+  	          <option value="17">Sector 17</option>
+  	          <option value="18">Sector 18</option>
+  	          <option value="19">Sector 19</option>
+  	          <option value="20">Sector 20</option>
+  	          <option value="21">Sector 21</option>
+  	          <option value="22">Sector 22</option>
+  	          <option value="23">Sector 23</option>
+  	          <option value="24">Sector 24</option>
+  	          <option value="25">Sector 25</option>
+  	          <option value="26">Sector 26</option>
+  	          <option value="27">Sector 27</option>
+  	          <option value="28">Sector 28</option>
+  	          <option value="29">Sector 29</option>
+  	          <option value="30">Sector 30</option>
+  	          <option value="31">Sector 31</option>
+  	          <option value="32">Sector 32</option>
+  	          <option value="33">Sector 33</option>
+            <option value="34">Sector 34</option>
+            <option value="35">Sector 35</option>
+            <option value="36">Sector 36</option>
+            <option value="37">Sector 37</option>
+            <option value="38">Sector 38</option>
+             <option value="39">Sector 39</option>
+             <option value="40">Sector 40</option>
+             <option value="41">Sector 41</option>
+             <option value="42">Sector 42</option>
+             <option value="43">Sector 43</option>
+             <option value="44">Sector 44</option>
+             <option value="45">Sector 45</option>
+  	  </select>
+  				</div>
+  					<div class="input_wrap">
+  		 			<label for="area">Carpet Area (in Sq. Mtr)</label>
+ 		<input name="area" type="number" id="PropArea" required>
+  				</div>
+  				<div class="input_wrap">
+  					<label for="depreciation">Depreciation/Ghasara (in Years)</label>
+  					<input name="depghas" type="number" id="depghas" required>
+  				</div>
+  				<div class="input_wrap">
+  					<label for="floor">Floor Number </label>
+ 			<input name="floor" type="number" id="floorNum" required>
+  				</div>
+ 				<div class="input_wrap">
+  					<button type="button" class="submit_btn" onclick="stamp()">CALCULATE</button>
+  				</div>
+  			</div>
+  		</form><br>
+  	<div id="sharableDiv">
+    <table class="valuation-table">
+    <tr>
+      <th colspan="4">E- Valuation <span style="float: right;" id="printDate">date</span></th>
+    </tr>
+    <tr>
+      <td colspan="4">Valuation Year: <b>2024</b></td>
+    </tr>
+    <tr>
+    <td colspan="1">District: <b>Raigad</b></td>
+    <td colspan="1">Taluka: <b>Panvel</b></td>
+    <td colspan="2">Type: <b>Residential</b></td>
+    </tr>
+    <tr>
+      <td colspan="4">Village: <b>Kharghar CIDCO Sec. No. <span id="SecNo">34</span></b></td>
+    </tr>
+    <tr>
+      <td colspan="2">Construction Type: <b>RCC Sure</b></td>
+      <td colspan="2">Plot No./Survey No. <b>NA</b></td>
+    </tr>
+    <tr>
+      <td colspan="4" style="background: #d6e6f1; color: #2e6d8e;"><b>Rates Applicable (Per Sq. Mt)</b></td>
+    </tr>
+    <tr>
+      <td colspan="2">Residential: <br><b><span id="PropValue">98900</span></b></td>
+      <td colspan="2">Open Land: <br><b><span id="LandValue">35100</span></b></td>
+    </tr>
+    <tr>
+      <th style="background: #d6e6f1; color: #2e6d8e;" colspan="4">Property Details</th>
+    </tr>
+    <tr>
+      <td colspan="3">Built-up Area</td>
+      <td colspan="1"><b><span id="CArea">76.02</span> m²</b></td>
+    </tr>
+    <tr>
+      <td colspan="3">Floor Number</td>
+      <td colspan="1"><b><span id="flrN">7</span></b></td>
+    </tr>
+    <tr>
+      <td colspan="3">Lift Available</td>
+      <td colspan="1"><b>Yes</b></td>
+    </tr>
+    <tr>
+      <td colspan="3">Property Age (in years)</td>
+      <td colspan="1"><b><span id="ghasara1">11</span>y</b></td>
+    </tr>
+    <tr>
+      <th style="background: #d6e6f1; color: #2e6d8e;" colspan="4">Valuation Details</th>
+    </tr>
+    <tr>
+      <td colspan="2">Applicable Rate</td>
+      <td colspan="2"><b><span id="AppRate">98484</span></b></td>
+    </tr>
+    <tr>
+      <td colspan="2">Depreciation</td>
+      <td colspan="2"><b><span id="ghasara2">11</span></b></td>
+
+    </tr>
+    <tr style="background: #fee2e2;">
+      <td colspan="1">Total</td>
+      <td colspan="3"><b><span id="totalN" style="color: #f02c2d; font-size: 20px;">72,67,300</span></b></td>
+    </tr>
+    <tr>
+        <td colspan="1">in Words</td>
+      <td colspan="3"><b><span id="totalW">Seventy Two Lacs Sixty Seven Thousand Three Hundred</span> Only</b></td>
+    </tr>
+    <tr>
+      <td colspan="4" class="note"><b>Note: </b>Final Valuation is rounded to the next 100/-.</td>
+    </tr>
+  </table>
+  </div>
+  <center>	<img src="../share.png" id="share" alt="shareButton">
+</center>
+ <div id="footer">
+     <p>Developed By <b>Yasir Divde</b></p>
+ </div>
+</body>
+<script src="flat.js"></script>
+<script src="../data.js"></script>
+<script src="../share.js"></script>
+<script src="../modal.js"></script>
+</html>
