@@ -50,6 +50,7 @@
   	   <div id="output">
   		<span>STAMP DUTY: </span><span style="font-weight: bold; color: #2e6d8e; font-size: 18px;" id="showsd"></span><br>
   		<span>REGISTRATION FEES: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showrf"></span><br>
+         <span>DHC: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showdhc"></span><br>
   			<span>TOTAL: </span><span style="font-weight: bold; color: #f02c2d; font-size: 22px;" id="showto"></span><br>
   	</div>
   </div>
@@ -64,7 +65,7 @@
 <script>
     function stamp() {
         var m,r,d,md,tr,ta,sd;
-        var rf=1000,total;
+        var rf=1000,dhc=300,total;
         m=frm1.month.value;
         r=frm1.rent.value;
         d=frm1.deposit.value;
@@ -73,13 +74,14 @@
         ta=md+tr;
         sd=ta*0.0025;
         sdf=Math.round(sd);
-        total=sdf+rf;
+        total=sdf+rf+dhc;
         
 document.getElementById("sharableDiv").style.display = "block";
 document.getElementById("regform").style.display = "none"  
 document.getElementById("share").style.display = "inline-block";
 document.getElementById("back").style.display = "inline-block";        document.getElementById("showsd").innerHTML = sdf;
 document.getElementById("showrf").innerHTML = rf;
+document.getElementById("showdhc").innerHTML = dhc;
 document.getElementById("showto").innerHTML = total;
 document.getElementById("showLP").innerHTML = m;
 document.getElementById("showRD").innerHTML = d;
