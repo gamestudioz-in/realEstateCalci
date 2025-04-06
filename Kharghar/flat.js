@@ -27,7 +27,7 @@ else if (sectorNo == 2) {
     landValue = 45100;
 }
 else if (sectorNo == 3) {
-    resiValue = 92300;
+    resiValue = 106100;
     landValue = 35500;
 }
 else if (sectorNo == 4) {
