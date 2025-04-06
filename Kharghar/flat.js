@@ -19,11 +19,11 @@ function stamp() {
   floorNumber = document.querySelector("input[name='floor']").value;
 // Sector wise values
 if (sectorNo == 1) {
-    resiValue = 88700;
-    landValue = 40500;
+    resiValue = 94900;
+    landValue = 41700;
 }
 else if (sectorNo == 2) {
-    resiValue = 121800;
+    resiValue = 134000;
     landValue = 45100;
 }
 else if (sectorNo == 3) {
@@ -31,88 +31,88 @@ else if (sectorNo == 3) {
     landValue = 35500;
 }
 else if (sectorNo == 4) {
-    resiValue = 112300;
+    resiValue = 122400;
     landValue = 42300;
 }
 else if (sectorNo == 5) {
-    resiValue = 120200;
-    landValue = 45700;
+    resiValue = 132200;
+    landValue = 48000;
 }
 else if (sectorNo == 6) {
-    resiValue = 135400;
-    landValue = 53900;
+    resiValue = 155700;
+    landValue = 57700;
 }
 else if (sectorNo == 7) {
-    resiValue = 126800;
-    landValue = 48600;
+    resiValue = 145800;
+    landValue = 52000;
 }
 else if (sectorNo == 8) {
-    resiValue = 118600;
+    resiValue = 135200;
     landValue = 46900;
 }
 else if (sectorNo == 9) {
-    resiValue = 90200;
-    landValue = 43900;
+    resiValue = 94700;
+    landValue = 44800;
 }
 else if (sectorNo == 10) {
-    resiValue = 108700;
+    resiValue = 123900;
     landValue = 45400;
 }
 else if (sectorNo == 11) {
-    resiValue = 112800;
+    resiValue = 130800;
     landValue = 42500;
 }
 else if (sectorNo == 12) {
-    resiValue = 117600;
-    landValue = 48900;
+    resiValue = 137600;
+    landValue = 53800;
 }
 else if (sectorNo == 13) {
-    resiValue = 86800;
-    landValue = 32700;
+    resiValue = 99000;
+    landValue = 35000;
 }
 else if (sectorNo == 14) {
-    resiValue = 110300;
+    resiValue = 121300;
     landValue = 39300;
 }
 else if (sectorNo == 15) {
-    resiValue = 106300;
-    landValue = 42400;
+    resiValue = 121200;
+    landValue = 44500;
 }
 else if (sectorNo == 16) {
-    resiValue = 81500;
-    landValue = 24600;
+    resiValue = 93700;
+    landValue = 26300;
 }
 else if (sectorNo == 17) {
-    resiValue = 78600;
+    resiValue = 90400;
     landValue = 24400;
 }
 else if (sectorNo == 18) {
-    resiValue = 100200;
+    resiValue = 115200;
     landValue = 32000;
 }
 else if (sectorNo == 19) {
-    resiValue = 111900;
-    landValue = 44900;
+    resiValue = 122000;
+    landValue = 45800;
 }
 else if (sectorNo == 20) {
-    resiValue = 107100;
+    resiValue = 127400;
     landValue = 44400;
 }
 else if (sectorNo == 21) {
-    resiValue = 100500;
-    landValue = 45600;
+    resiValue = 115600;
+    landValue = 50200;
 }
 else if (sectorNo == 22) {
-    resiValue = 49300;
-    landValue = 15700;
+    resiValue = 51800;
+    landValue = 16000;
 }
 else if (sectorNo == 23) {
-    resiValue = 80000;
-    landValue = 28100;
+    resiValue = 88000;
+    landValue = 29500;
 }
 else if (sectorNo == 24) {
-    resiValue = 62400;
-    landValue = 30300;
+    resiValue = 65500;
+    landValue = 30900;
 }
 else if (sectorNo == 25) {
     resiValue = 57200;
@@ -123,19 +123,19 @@ else if (sectorNo == 26) {
     landValue = 17000;
 }
 else if (sectorNo == 27) {
-    resiValue = 98800;
+    resiValue = 118600;
     landValue = 42000;
 }
 else if (sectorNo == 28) {
-    resiValue = 68700;
-    landValue = 31000;
+    resiValue = 72100;
+    landValue = 31600;
 }
 else if (sectorNo == 29) {
     resiValue = 64900;
     landValue = 29000;
 }
 else if (sectorNo == 30) {
-    resiValue = 79900;
+    resiValue = 92700;
     landValue = 31000;
 }
 else if (sectorNo == 31) {
@@ -147,32 +147,32 @@ else if (sectorNo == 32) {
     landValue = 30700;
 }
 else if (sectorNo == 33) {
-    resiValue = 81000;
-    landValue = 30700;
+    resiValue = 89100;
+    landValue = 38600;
 }
 else if (sectorNo == 34) {
-    resiValue = 98900;
+    resiValue = 117700;
     landValue = 35100;
 }
 else if (sectorNo == 35) {
-    resiValue = 98800;
-    landValue = 36600;
+    resiValue = 113700;
+    landValue = 38400;
 }
 else if (sectorNo == 36) {
-    resiValue = 53500;
-    landValue = 14700;
+    resiValue = 64200;
+    landValue = 16200;
 }
 else if (sectorNo == 37) {
-    resiValue = 56200;
-    landValue = 19200;
+    resiValue = 61800;
+    landValue = 20200;
 }
 else if (sectorNo == 38) {
     resiValue = 52200;
     landValue = 17200;
 }
 else if (sectorNo == 39) {
-    resiValue = 70900;
-    landValue = 25000;
+    resiValue = 78000;
+    landValue = 26800;
 }
 else if (sectorNo == 40) {
     resiValue = 55800;
