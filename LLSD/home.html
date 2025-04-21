@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <title>STAMP DUTY CALCULATOR</title>
   <link rel="stylesheet" href="main.css">
@@ -56,8 +57,16 @@
   			<span>TOTAL: </span><span style="font-weight: bold; color: #f02c2d; font-size: 22px;" id="showto"></span><br>
   	</div>
   </div>
-  <center>	<button id="share">SHARE on WHATSAPP</button><br>
-  <button id="back">BACK</button></center>
+  <center>
+   <button id="share">
+   <span class="material-symbols-outlined">share</span>
+   <span>SHARE</span>
+  </button><br><br>
+  <button id="back">
+   <span class="material-symbols-outlined">arrow_back</span>
+   <span>BACK</span>
+  </button>
+  </center>
   </div>
   </div>
 <div id="footer">
@@ -80,8 +89,8 @@
         
 document.getElementById("sharableDiv").style.display = "block";
 document.getElementById("regform").style.display = "none"  
-document.getElementById("share").style.display = "inline-block";
-document.getElementById("back").style.display = "inline-block";        document.getElementById("showsd").innerHTML = sdf;
+document.getElementById("share").style.display = "inline-flex";
+document.getElementById("back").style.display = "inline-flex";        document.getElementById("showsd").innerHTML = sdf;
 document.getElementById("showrf").innerHTML = rf;
 document.getElementById("showdhc").innerHTML = dhc;
 document.getElementById("showpnoc").innerHTML = pnoc;
