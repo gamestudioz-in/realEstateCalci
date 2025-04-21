@@ -156,30 +156,44 @@
     border-radius: 20px;
 }
 #share {
-  background-color: #c2fbd7;
-  border: 1px solid green;
-  border-radius: 100px;
-  color: green;
-  cursor: pointer;
   display: none;
-  padding: 7px 20px;
-  text-align: center;
-  margin: 20px;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  background: #28a745; /* success green */
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#share:hover, #share:active {
+  background: #218838; /* darker green for hover/active */
 }
 #back {
-  background-color: lightgrey;
-  border: 1px solid black;
-  border-radius: 100px;
-  color: black;
-  cursor: pointer;
   display: none;
-  padding: 7px 20px;
-  text-align: center;
-  margin: -10px;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  background: #f02c2d; /* bright red */
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
-#share:hover {
-  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
-  transform: scale(1.05) rotate(-0deg);
+
+#back:hover, #back:active {
+  background: #c52828; /* darker red for hover/active */
 }
 #sharableDiv {
     display: none;
