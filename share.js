@@ -29,10 +29,6 @@ document.getElementById('share').addEventListener('click', function () {
             });
         });
         
-        
- document.getElementById("backArrow").addEventListener('click', function() {
-     window.location.href = '../homeRR.html';
- });
  document.getElementById("help").addEventListener('click', function() {
      window.location.href = '../help.html';
  });
