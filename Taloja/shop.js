@@ -22,7 +22,7 @@ if (sectorNo == 1) {
     landValue = 19000;
 }
 else if (sectorNo == 2) {
-    comiValue = 77600;
+    comiValue = 86900;
     landValue = 19000;
 }
 else if (sectorNo == 3) {
@@ -30,72 +30,72 @@ else if (sectorNo == 3) {
     landValue = 19000;
 }
 else if (sectorNo == 4) {
-    comiValue = 83300;
+    comiValue = 95800;
     landValue = 15100;
 }
 else if (sectorNo == 5) {
-    comiValue = 82400;
-    landValue = 14700;
+    comiValue = 95600;
+    landValue = 15000;
 }
 else if (sectorNo == 6) {
-    comiValue = 72900;
-    landValue = 13900;
+    comiValue = 73600;
+    landValue = 14600;
 }
 else if (sectorNo == 7) {
-    comiValue = 82400;
-    landValue = 14700;
+    comiValue = 94800;
+    landValue = 15000;
 }
 else if (sectorNo == 8) {
-    comiValue = 74300;
-    landValue = 14300;
+    comiValue = 81700;
+    landValue = 15000;
 }
 else if (sectorNo == 9) {
-    comiValue = 81900;
-    landValue = 17300;
+    comiValue = 94200;
+    landValue = 18500;
 }
 else if (sectorNo == 10) {
-    comiValue = 78000;
-    landValue = 19000;
+    comiValue = 85800;
+    landValue = 20000;
 }
 else if (sectorNo == 11) {
-    comiValue = 76500;
+    comiValue = 84200;
     landValue = 19000;
 }
 else if (sectorNo == 12) {
-    comiValue = 76500;
-    landValue = 19000;
+    comiValue = 78800;
+    landValue = 20000;
 }
 else if (sectorNo == 13) {
     comiValue = 76500;
-    landValue = 19000;
+    landValue = 19600;
 }
 else if (sectorNo == 14) {
-    comiValue = 80100;
-    landValue = 17300;
+    comiValue = 92100;
+    landValue = 18500;
 }
 else if (sectorNo == 15) {
-    comiValue = 74300;
-    landValue = 12600;
+    comiValue = 85400;
+    landValue = 13500;
 }
 else if (sectorNo == 16) {
-    comiValue = 76700;
+    comiValue = 88200;
     landValue = 14300;
 }
 else if (sectorNo == 17) {
-    comiValue = 83300;
+    comiValue = 95800;
     landValue = 15100;
 }
 else if (sectorNo == 18) {
-    comiValue = 83300;
+    comiValue = 95800;
     landValue = 15100;
 }
 else if (sectorNo == 19) {
-    comiValue = 74400;
-    landValue = 15100;
+    comiValue = 79600;
+    landValue = 16200;
 }
 else if (sectorNo == 20) {
-    comiValue = 78400;
-    landValue = 16800;
+    comiValue = 90200;
+    landValue = 18000;
 }
 else if (sectorNo == 21) {
     comiValue = 75800;
@@ -106,11 +106,11 @@ else if (sectorNo == 22) {
     landValue = 18100;
 }
 else if (sectorNo == 23) {
-    comiValue = 79500;
+    comiValue = 95400;
     landValue = 17300;
 }
 else if (sectorNo == 24) {
-    comiValue = 75300;
+    comiValue = 86600;
     landValue = 17300;
 }
 else if (sectorNo == 25) {
@@ -118,12 +118,12 @@ else if (sectorNo == 25) {
     landValue = 14300;
 }
 else if (sectorNo == 26) {
-    comiValue = 84100;
+    comiValue = 95000;
     landValue = 17300;
 }
 else if (sectorNo == 27) {
-    comiValue = 75800;
-    landValue = 18100;
+    comiValue = 77300;
+    landValue = 18300;
 }
 else if (sectorNo == 28) {
     comiValue = 75800;
