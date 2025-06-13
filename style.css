@@ -156,14 +156,24 @@
 	background: #2e6d8e;
 }
 #share {
-  width: 180px;
-  height: 40px;
   display: none;
-  text-align: center;
-  margin: 20px;
-  border: 1px solid black;
-  border-radius: 100px;
-  background: #01E809;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  background: #28a745; /* success green */
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#share:hover, #share:active {
+  background: #218838; /* darker green for hover/active */
 }
 #back {
   background-color: lightgrey;
@@ -177,9 +187,6 @@
   display: none;
   text-align: center;
   margin: 0px;
-}
-#share:hover {
-   transform: scale(1.05) rotate(-3deg);
 }
 #backArrow {
    padding: 5px 10px;
