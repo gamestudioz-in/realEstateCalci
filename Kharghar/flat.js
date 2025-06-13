@@ -1,4 +1,4 @@
-var sectorNo, carpetArea, area, ghasara, floorNumber, resiValue, landValue, applicableRate, floorRise, ghasaraFall, totalVal;
+var sectorNo, carpetArea, area, terraceArea, ghasara, floorNumber, resiValue, landValue, applicableRate, floorRise, ghasaraFall, totalVal;
 
 var today = new Date();
 var day = String(today.getDate()).padStart(2, '0');
@@ -14,7 +14,8 @@ function stamp() {
   // Get form values
   sectorNo = document.querySelector("select[name='sector']").value;
   carpetArea = document.querySelector("input[name='area']").value;
-  area = parseFloat(carpetArea * 1.2).toFixed(2);
+  terraceArea = document.querySelector("input[name='Tarea']").value;
+  area = parseFloat(carpetArea * 1.2).toFixed(3);
   ghasara = document.querySelector("input[name='depghas']").value;
   floorNumber = document.querySelector("input[name='floor']").value;
 // Sector wise values
@@ -230,7 +231,9 @@ var riseValue = (resiValue * floorRise) - landValue;
 var fallValue = (riseValue * (1-(ghasaraFall/100))) + landValue;
 applicableRate = Math.ceil(fallValue);
 total = area * applicableRate;
-var roundedTotal = Math.round(total / 100) * 100;
+var totalTerraceArea = terraceArea * (applicableRate * 40/100);
+var grandTotal = total + totalTerraceArea;
+var roundedTotal = Math.round(grandTotal / 100) * 100;
 let formattedTotal = formatIndianNumber(roundedTotal);
 let wordsTotal = numberToWords(roundedTotal);
 
@@ -244,6 +247,7 @@ let sdChargesFemale = formatIndianNumber(Math.ceil(roundedTotal * 0.06));
   document.getElementById("PropValue").innerHTML = resiValue;
   document.getElementById("LandValue").innerHTML = landValue;
   document.getElementById("CArea").innerHTML = area;
+  document.getElementById("TerArea").innerHTML = terraceArea;
   document.getElementById("flrN").innerHTML = floorNumber;
   document.getElementById("ghasara1").innerHTML = ghasara;
   document.getElementById("ghasara2").innerHTML = ghasaraFall;
