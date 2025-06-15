@@ -43,20 +43,54 @@
   			</div>
   		</form><br>
   	<div id="sharableDiv">
-  	    <div id="input">
-  	      	<span>LICENSE PERIOD: </span><span style="font-weight: bold; color: #2e6d8e; font-size: 18px;" id="showLP"></span><br>
-  		<span>REFUNDABLE DEPOSIT: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showRD"></span><br>
-  			<span>MONTHLY RENT: </span><span style="font-weight: bold; color: #f02c2d; font-size: 18px;" id="showMR"></span><br>  
-  	   </div><br>
-  	   <div id="output">
-  		<span>STAMP DUTY: </span><span style="font-weight: bold; color: #2e6d8e; font-size: 18px;" id="showsd"></span><br>
-  		<span>REGISTRATION FEES: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showrf"></span><br>
-         <span>DHC: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showdhc"></span><br>
-         <span>Police NOC: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showpnoc"></span><br>
-         <span>Agent Fees: </span><span style="font-weight: bold;color: #2e6d8e; font-size: 18px;" id="showaf"></span><br>
-  			<span>TOTAL: </span><span style="font-weight: bold; color: #f02c2d; font-size: 22px;" id="showto"></span><br>
-  	</div>
-  </div>
+  	   	  <div class="container">
+    <h2>Leave & License Stamp Duty Calculator</h2>
+    <table>
+        <tr>
+            <td colspan="2" class="section-header">License Details</td>
+        </tr>
+        <tr class="row">
+            <td>License Period</td>
+            <td><strong><span id="showLP">11</span> Months</strong></td>
+        </tr>
+        <tr class="row">
+            <td>Refundable Deposit</td>
+            <td><strong>₹ <span id="showRD">53,500</span></strong></td>
+        </tr>
+        <tr class="row">
+            <td>Monthly Rent (1 to 11)</td>
+            <td class="highlight">₹ <span id="showMR">12,500</span></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="section-header">Charges Breakdown</td>
+        </tr>
+        <tr class="row">
+            <td>Stamp Duty</td>
+            <td><strong>₹ <span id="showsd">355</span></strong></td>
+        </tr>
+        <tr class="row">
+            <td>Registration Fees</td>
+            <td><strong>₹ 1,000</strong></td>
+        </tr>
+        <tr class="row">
+            <td>DHC</td>
+            <td><strong>₹ 300</strong></td>
+        </tr>
+        <tr class="row">
+            <td>Police NOC</td>
+            <td><strong>₹ 500</strong></td>
+        </tr>
+        <tr class="row">
+            <td>Agent Fees</td>
+            <td><strong>₹ 1,000</strong></td>
+        </tr>
+        <tr class="total-row">
+            <td class="total">Total</td>
+            <td class="total">₹ <span id="showto">3,155</span></td>
+        </tr>
+    </table>
+</div> 
+   </div>
   <center>
    <button id="share">
    <span class="material-symbols-outlined">share</span>
@@ -74,6 +108,9 @@
  </div>
 </body>
 <script>
+   function formatIndianCurrency(amount) {
+    return Number(amount).toLocaleString('en-IN');
+}
     function stamp() {
         var m,r,d,md,tr,ta,sd;
         var rf=1000,af=1000,dhc=300,pnoc=500,total;
@@ -86,19 +123,18 @@
         sd=ta*0.0025;
         sdf=Math.round(sd);
         total=sdf+rf+dhc+pnoc+af;
-        
+        var rdIndian = formatIndianCurrency(d);
+        var rentIndian = formatIndianCurrency(r);
+        var sdIndian = formatIndianCurrency(sdf);
+        var totalIndian = formatIndianCurrency(total);
 document.getElementById("sharableDiv").style.display = "block";
 document.getElementById("regform").style.display = "none"  
 document.getElementById("share").style.display = "inline-flex";
-document.getElementById("back").style.display = "inline-flex";        document.getElementById("showsd").innerHTML = sdf;
-document.getElementById("showrf").innerHTML = rf;
-document.getElementById("showdhc").innerHTML = dhc;
-document.getElementById("showpnoc").innerHTML = pnoc;
-document.getElementById("showaf").innerHTML = af;
-document.getElementById("showto").innerHTML = total;
+document.getElementById("back").style.display = "inline-flex";        document.getElementById("showsd").innerHTML = sdIndian;
+document.getElementById("showto").innerHTML = totalIndian;
 document.getElementById("showLP").innerHTML = m;
-document.getElementById("showRD").innerHTML = d;
-document.getElementById("showMR").innerHTML = r;
+document.getElementById("showRD").innerHTML = rdIndian;
+document.getElementById("showMR").innerHTML = rentIndian;
     }
 </script>
 <script src="share.js"></script>
