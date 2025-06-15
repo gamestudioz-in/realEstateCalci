@@ -1,4 +1,4 @@
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 *{
 	margin: 0;
@@ -143,18 +143,63 @@
 .form_wrap .submit_btn:hover{
 	background: #f02c2d;
 }
-#input {
-    background: #d6e6f1;
-    padding: 5%;
-    border: 1px solid #2e6d8e;
-    border-radius: 20px;
-}
-#output {
-    background: #fee2e2;
-    padding: 5%;
-    border: 1px solid #f02c2d;
-    border-radius: 20px;
-}
+  .container {
+            max-width: 700px;
+            margin: 0 auto;
+            border-radius: 12px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border: 1px solid #1b4f72;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .container h2 {
+            background-color: #1b4f72;
+            color: #fff;
+            margin: 0;
+            padding: 18px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: 1px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 16px;
+            vertical-align: top;
+        }
+        .section-header {
+            background-color: #dde8f0;
+            font-weight: 500;
+            font-size: 16px;
+            color: #1b4f72;
+            border-bottom: 1px solid #ccc;
+        }
+        .highlight {
+            color: #1b4f72;
+            font-weight: 700;
+        }
+        .total {
+            font-weight: 700;
+            color: #0b3c5d;
+            font-size: 18px;
+            border: 1px solid #1b4f72;
+            border-bottom: none;
+        }
+        .row {
+            border-bottom: 1px solid #ebebeb;
+        }
+        .total-row {
+            background: #dde8f0;
+        }
 #share {
   display: none;
   align-items: center;
@@ -197,5 +242,6 @@
 }
 #sharableDiv {
     display: none;
-    padding:10px;
+    padding: 0px;
+    padding-bottom: 20px;
 }
