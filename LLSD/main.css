@@ -200,6 +200,9 @@
         .total-row {
             background: #dde8f0;
         }
+       .licenseTime {
+           font-size: 12px;
+       }
 #share {
   display: none;
   align-items: center;
