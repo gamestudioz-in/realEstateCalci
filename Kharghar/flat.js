@@ -238,8 +238,15 @@ let formattedTotal = formatIndianNumber(roundedTotal);
 let wordsTotal = numberToWords(roundedTotal);
 
 //Calculating stamp duty
-let sdChargesMale = formatIndianNumber(Math.ceil(roundedTotal * 0.07));
-let sdChargesFemale = formatIndianNumber(Math.ceil(roundedTotal * 0.06));
+function roundUpToNearestHundred(value) {
+    return Math.ceil(value / 100) * 100;
+}
+let sdAmountMale = roundedTotal * 0.07;
+let sdAmountFemale = roundedTotal * 0.06;
+let hundredSDMale = roundUpToNearestHundred(sdAmountMale);
+let hundredSDFemale = roundUpToNearestHundred(sdAmountFemale);
+let sdChargesMale = formatIndianNumber(hundredSDMale);
+let sdChargesFemale = formatIndianNumber(hundredSDFemale);
 
   // Store values in Table
   document.getElementById("printDate").innerHTML = currentDate;
