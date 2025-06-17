@@ -26,5 +26,7 @@
         }
         res=((98900*floorR)-35100)*((100-dep)/100)+35100;
         resn=res*temp;
+//for terrace area:
+   terraceAreaValue = TerraceArea * (rate * 40%);
         document.write("<br>Ready Reckoner Value is&ensp;₹" +resn);
         }
