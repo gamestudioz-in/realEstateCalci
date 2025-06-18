@@ -187,6 +187,9 @@ let sdChargesFemale = formatIndianNumber(hundredSDFemale);
 
 
   // Store values in Table
+if(terraceArea == 0) {
+ document.getElementById("terraceRow").style.display = "none";
+}
   document.getElementById("printDate").innerHTML = currentDate;
   document.getElementById("SecNo").innerHTML = sectorNo;
   document.getElementById("PropValue").innerHTML = resiValue;
