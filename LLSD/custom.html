@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <title>STAMP DUTY CALCULATOR</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	font-family: 'Montserrat', sans-serif;
+}
+#nav {
+    background: #f02c2d;
+    height: 50px;
+    padding: 10px;
+    border-bottom: 3px solid #2e6d8e;
+}
+ #start {
+    font-size: 18px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 3px 3px;
+    margin-right: 10px;
+}
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f02c2d;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-top: 3px solid #2e6d8e;
+}
+.wrapper {
+	min-height: 100vh;
+	display: flex;
+	
+}
+
+.registration_form {
+	background: white;
+	padding: 25px;
+	border-radius: 5px;
+	width: 100%;
+}
+
+
+.form_wrap{
+	margin-top: 15px;
+}
+
+.form_wrap .input_wrap{
+	margin-bottom: 15px;
+}
+
+.form_wrap .input_wrap:last-child{
+	margin-bottom: 0;
+}
+
+.form_wrap .input_wrap label{
+	display: block;
+	margin-bottom: 3px;
+	color: #1a1a1f;
+}
+
+.form_wrap .input_grp{
+	display: flex;
+	justify-content: space-between;
+}
+
+.form_wrap .input_grp  input[type="number"]{
+	width: 165px;
+}
+
+.form_wrap  input[type="number"]{
+	width: 100%;
+	border-radius: 3px;
+	border: 1.3px solid #9597a6;
+	padding: 10px;
+	outline: none;
+  font-weight: bold;
+}
+
+.form_wrap  input[type="number"]:focus{
+	border-color: #2e6d8e;
+	background: #d6e6f1;
+}
+
+.form_wrap ul{
+ border:1px solid rgb(115, 185, 235);
+  width:70%;
+  background: rgb(206, 238, 242);
+  margin-left: 15%;
+	padding: 8px 10px;
+	border-radius: 20px;
+	display: flex;
+	justify-content: center;
+}
+
+.form_wrap ul li:first-child{
+	margin-right: 15px;
+}
+
+.form_wrap ul .radio_wrap{
+	position: relative;
+	margin-bottom: 0;
+}
+
+.form_wrap ul .radio_wrap .input_radio{
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+}
+
+.form_wrap ul .radio_wrap span{
+	display: inline-block;
+	font-size: 17px;
+	padding: 3px 15px;
+	border-radius: 15px;
+	color: #101749;
+}
+
+.form_wrap .input_radio:checked ~ span{
+	background: #105ce2;
+  color:white;
+}
+
+.form_wrap .submit_btn{
+	width: 100%;
+	background: #2e6d8e;
+	padding: 10px;
+	border: 0;
+  color:white;
+  font-size:17px;
+	border-radius: 3px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.form_wrap .submit_btn:hover{
+	background: #f02c2d;
+}
+
+/* New styles for rent table */
+.rent-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border: 1px solid #2e6d8e;
+    border-radius: 5px;
+}
+
+.rent-table th, .rent-table td {
+    border: 1px solid #9597a6;
+    padding: 8px;
+    text-align: center;
+}
+
+.rent-table th {
+    background: #2e6d8e;
+    color: white;
+    font-weight: bold;
+}
+
+.rent-table input[type="number"] {
+    width: 100%;
+    border: none;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+    outline: 1px solid #9597a6;
+}
+
+.rent-table input[type="number"]:focus {
+    background: #d6e6f1;
+    outline: 1px solid #2e6d8e;
+}
+
+.add-row-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.add-row-btn:hover {
+    background: #218838;
+}
+
+.remove-row-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 2px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.remove-row-btn:hover {
+    background: #c82333;
+}
+
+  .container {
+            max-width: 700px;
+            margin: 0 auto;
+            border-radius: 12px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border: 1px solid #1b4f72;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .container h2 {
+            background-color: #1b4f72;
+            color: #fff;
+            margin: 0;
+            padding: 18px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: 1px;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+            font-size: 16px;
+            vertical-align: top;
+        }
+        .section-header {
+            background-color: #dde8f0;
+            font-weight: 500;
+            font-size: 16px;
+            color: #1b4f72;
+            border-bottom: 1px solid #ccc;
+        }
+        .highlight {
+            color: #1b4f72;
+            font-weight: 700;
+        }
+        .total {
+            font-weight: 700;
+            color: #0b3c5d;
+            font-size: 18px;
+            border: 1px solid #1b4f72;
+            border-bottom: none;
+        }
+        .row {
+            border-bottom: 1px solid #ebebeb;
+        }
+        .total-row {
+            background: #dde8f0;
+        }
+       .licenseTime {
+           font-size: 12px;
+       }
+#share {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  background: #28a745; /* success green */
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#share:hover, #share:active {
+  background: #218838; /* darker green for hover/active */
+}
+#back {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  background: #f02c2d; /* bright red */
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#back:hover, #back:active {
+  background: #c52828; /* darker red for hover/active */
+}
+#sharableDiv {
+    display: none;
+    padding: 10px;
+    padding-bottom: 20px;
+}
+
+</style>
+  </head>
+<body>
+  <div id="nav">
+      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="../index.html" id="start"><i class='bx bx-home-alt'></i></a>Leave & Licence Stamp Duty</h3>
+      <button style="float: right; color: white; background: #2e6d8e; border: 2px solid white; padding: 5px 7px; border-radius: 10px;">? HELP</button>
+  </div>
+  <div class="wrapper">
+  	<div class="registration_form">
+
+  		<form id="regform" name="frm1" method="post">
+  			<div class="form_wrap">
+  				<div class="input_wrap">
+  					<label for="period">License Period (in Months)</label>
+  					<input name="month" type="number" id="totalMonths" placeholder="" min="1" max="120" onchange="updateRentTable()">
+  				</div>
+  				<div class="input_wrap">
+  					<label for="rtype">Type of Rent</label>
+  					<input type="radio" class="rr" onclick="window.open('home.html','_self')" value="Fixed"> FIXED RENT
+  					<input style="margin-left: 20px;" type="radio" class="rr" value="Varying" onclick="window.open('option.html','_self')" checked> VARYING RENT
+  				</div>
+
+  				<div class="input_wrap">
+  					<label for="rentTable">Varying Rent Configuration</label>
+  					<table class="rent-table" id="rentTable">
+  					    <thead>
+  					        <tr>
+  					            <th>From Month</th>
+  					            <th>To Month</th>
+  					            <th>Rent (₹)</th>
+  					            <th>Action</th>
+  					        </tr>
+  					    </thead>
+  					    <tbody id="rentTableBody">
+  					        <tr>
+  					            <td>1</td>
+  					            <td><input type="number" class="to-month" min="1" max="22" placeholder="To" onchange="validateRow(this)"></td>
+  					            <td><input type="number" class="rent-amount" placeholder="Enter rent" min="0"></td>
+  					            <td><button type="button" class="remove-row-btn" onclick="removeRow(this)" disabled>Remove</button></td>
+  					        </tr>
+  					    </tbody>
+  					</table>
+  					<button type="button" class="add-row-btn" onclick="addRentRow()">Add New Period</button>
+  				</div>
+
+  				<div class="input_wrap">
+  					<label for="Deposits">Refundable Deposit (in Rupees)</label>
+  					<input name="deposit" type="number" id="rd" min="0">
+  				</div>
+ 				<div class="input_wrap">
+  					<button type="button" class="submit_btn" onclick="stamp()">CALCULATE</button>
+  				</div>
+  			</div>
+  		</form><br>
+  		<div id="sharableDiv">
+  		    <div class="container">
+    <h2>Leave & License Stamp Duty Calculator</h2>
+    <table>
+        <tr>
+            <td colspan="2" class="section-header">License Details</td>
+        </tr>
+        <tr class="row">
+            <td>License Period</td>
+            <td><strong><span id="showLP">22</span> Months</strong></td>
+        </tr>
+        <tr class="row">
+            <td>Refundable Deposit</td>
+            <td><strong>₹ <span id="showRD">0</span></strong></td>
+        </tr>
+        <tbody id="rentBreakdown">
+        </tbody>
+        <tr>
+            <td colspan="2" class="section-header">Charges Breakdown</td>
+        </tr>
+        <tr class="row">
+            <td>Stamp Duty</td>
+            <td><strong>₹ <span id="showsd">0</span></strong></td>
+        </tr>
+        <tr class="row">
+            <td>Registration Fees</td>
+            <td><strong>₹ 1,000</strong></td>
+        </tr>
+        <tr class="row">
+            <td>DHC</td>
+            <td><strong>₹ 300</strong></td>
+        </tr>
+        <tr class="row">
+            <td>Police NOC</td>
+            <td><strong>₹ 500</strong></td>
+        </tr>
+        <tr class="row">
+            <td>Agent Fees</td>
+            <td><strong>₹ 1,000</strong></td>
+        </tr>
+        <tr class="total-row">
+            <td class="total">Total</td>
+            <td class="total">₹ <span id="showto">2,800</span></td>
+        </tr>
+    </table>
+</div> 
+   </div>
+  <center>
+  <button id="share">
+   <span class="material-symbols-outlined">share</span>
+   <span>SHARE</span>
+  </button><br><br>
+  <button id="back">
+   <span class="material-symbols-outlined">arrow_back</span>
+   <span>BACK</span>
+  </button>
+  </center><br><br>
+  </div>
+  </div>
+<div id="footer">
+     <p>Developed By <b>Yasir Divde</b></p>
+ </div>
+</body>
+<script>
+    function formatIndianCurrency(amount) {
+        return Number(amount).toLocaleString('en-IN');
+    }
+
+    function updateRentTable() {
+        const totalMonths = parseInt(document.getElementById('totalMonths').value) || 22;
+        const tableBody = document.getElementById('rentTableBody');
+        
+        tableBody.innerHTML = `
+            <tr>
+                <td>1</td>
+                <td><input type="number" class="to-month" min="1" max="${totalMonths}" placeholder="To" onchange="validateRow(this)"></td>
+                <td><input type="number" class="rent-amount" placeholder="Enter rent" min="0"></td>
+                <td><button type="button" class="remove-row-btn" onclick="removeRow(this)" disabled>Remove</button></td>
+            </tr>
+        `;
+    }
+
+    function validateRow(element) {
+        const row = element.closest('tr');
+        const toMonth = parseInt(element.value);
+        const totalMonths = parseInt(document.getElementById('totalMonths').value) || 22;
+        
+        if (isNaN(toMonth)) {
+            updateRowButtons();
+            return;
+        }
+        
+        if (toMonth > totalMonths) {
+            element.value = totalMonths;
+        }
+        
+        // Check if we need to add a new row
+        const allRows = document.querySelectorAll('#rentTableBody tr');
+        const currentRowIndex = Array.from(allRows).indexOf(row);
+        const isLastRow = currentRowIndex === allRows.length - 1;
+        
+        if (isLastRow && toMonth < totalMonths) {
+            addRentRow();
+        }
+        
+        updateRowButtons();
+    }
+
+    function addRentRow() {
+        const tableBody = document.getElementById('rentTableBody');
+        const rows = tableBody.querySelectorAll('tr');
+        const lastRow = rows[rows.length - 1];
+        const lastToMonth = parseInt(lastRow.querySelector('.to-month').value) || 0;
+        const totalMonths = parseInt(document.getElementById('totalMonths').value) || 22;
+        
+        if (lastToMonth >= totalMonths) {
+            alert('Cannot add more rows. License period is complete.');
+            return;
+        }
+        
+        const newFromMonth = lastToMonth + 1;
+        
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${newFromMonth}</td>
+            <td><input type="number" class="to-month" min="${newFromMonth}" max="${totalMonths}" placeholder="To" onchange="validateRow(this)"></td>
+            <td><input type="number" class="rent-amount" placeholder="Enter rent" min="0"></td>
+            <td><button type="button" class="remove-row-btn" onclick="removeRow(this)">Remove</button></td>
+        `;
+        
+        tableBody.appendChild(newRow);
+        updateRowButtons();
+    }
+
+    function removeRow(button) {
+        const row = button.closest('tr');
+        const tableBody = document.getElementById('rentTableBody');
+        
+        if (tableBody.querySelectorAll('tr').length > 1) {
+            row.remove();
+            updateFromMonths();
+            updateRowButtons();
+        }
+    }
+
+    function updateFromMonths() {
+        const rows = document.querySelectorAll('#rentTableBody tr');
+        let currentFromMonth = 1;
+        
+        rows.forEach(row => {
+            const fromMonthCell = row.cells[0];
+            const toMonthInput = row.querySelector('.to-month');
+            
+            fromMonthCell.textContent = currentFromMonth;
+            toMonthInput.min = currentFromMonth;
+            
+            const toMonthValue = parseInt(toMonthInput.value);
+            if (!isNaN(toMonthValue)) {
+                currentFromMonth = toMonthValue + 1;
+            }
+        });
+    }
+
+    function updateRowButtons() {
+        const rows = document.querySelectorAll('#rentTableBody tr');
+        rows.forEach((row, index) => {
+            const removeBtn = row.querySelector('.remove-row-btn');
+            removeBtn.disabled = rows.length === 1;
+        });
+    }
+
+    function stamp() {
+        const totalMonths = parseInt(document.getElementById('totalMonths').value) || 22;
+        const deposit = parseFloat(document.getElementById('rd').value) || 0;
+        const rows = document.querySelectorAll('#rentTableBody tr');
+        
+        // Validate inputs
+        let isValid = true;
+        let totalRent = 0;
+        let rentBreakdown = [];
+        
+        for (let row of rows) {
+            const fromMonth = parseInt(row.cells[0].textContent);
+            const toMonth = parseInt(row.querySelector('.to-month').value);
+            const rentAmount = parseFloat(row.querySelector('.rent-amount').value);
+            
+            if (!rentAmount || rentAmount <= 0) {
+                alert('Please enter valid rent amounts for all periods.');
+                isValid = false;
+                break;
+            }
+            
+            if (isNaN(toMonth) || toMonth <= 0) {
+                alert('Please enter valid "To Month" values for all periods.');
+                isValid = false;
+                break;
+            }
+            
+            if (toMonth < fromMonth) {
+                alert('To month cannot be less than from month.');
+                isValid = false;
+                break;
+            }
+            
+            const monthsInPeriod = toMonth - fromMonth + 1;
+            const periodTotal = monthsInPeriod * rentAmount;
+            totalRent += periodTotal;
+            
+            rentBreakdown.push({
+                from: fromMonth,
+                to: toMonth,
+                rent: rentAmount,
+                months: monthsInPeriod,
+                total: periodTotal
+            });
+        }
+        
+        if (!isValid) return;
+        
+        // Check if all months are covered
+        const lastRow = rows[rows.length - 1];
+        const lastToMonth = parseInt(lastRow.querySelector('.to-month').value);
+        if (lastToMonth < totalMonths) {
+            alert(`Please ensure all months up to ${totalMonths} are covered in rent periods.`);
+            return;
+        }
+        
+        // Calculate stamp duty using original formula
+        const md = deposit * (totalMonths / 12) * 0.1;
+        const ta = md + totalRent;
+        const sd = ta * 0.0025;
+        const sdf = Math.round(sd);
+        
+        // Fixed charges
+        const rf = 1000;  // Registration fees
+        const af = 1000;  // Agent fees
+        const dhc = 300;  // DHC
+        const pnoc = 500; // Police NOC
+        const total = sdf + rf + af + dhc + pnoc;
+        
+        // Format for display
+        const depositIndian = formatIndianCurrency(deposit);
+        const sdIndian = formatIndianCurrency(sdf);
+        const totalIndian = formatIndianCurrency(total);
+        
+        // Update display
+        document.getElementById("showLP").innerHTML = totalMonths;
+        document.getElementById("showRD").innerHTML = depositIndian;
+        document.getElementById("showsd").innerHTML = sdIndian;
+        document.getElementById("showto").innerHTML = totalIndian;
+        
+        // Update rent breakdown in results
+        const rentBreakdownDiv = document.getElementById("rentBreakdown");
+        rentBreakdownDiv.innerHTML = '';
+        
+        rentBreakdown.forEach(period => {
+            const row = document.createElement('tr');
+            row.className = 'row';
+            row.innerHTML = `
+                <td>Monthly Rent <span class="licenseTime">(${period.from} - ${period.to})</span></td>
+                <td class="highlight">₹ ${formatIndianCurrency(period.rent)}</td>
+            `;
+            rentBreakdownDiv.appendChild(row);
+        });
+        
+        // Show results
+        document.getElementById("sharableDiv").style.display = "block";
+        document.getElementById("regform").style.display = "none";
+        document.getElementById("share").style.display = "inline-flex";
+        document.getElementById("back").style.display = "inline-flex";
+    }
+
+    // Back button functionality
+    document.getElementById("back").addEventListener("click", function() {
+        document.getElementById("sharableDiv").style.display = "none";
+        document.getElementById("regform").style.display = "block";
+        document.getElementById("share").style.display = "none";
+        document.getElementById("back").style.display = "none";
+    });
+
+    // Initialize on page load
+    window.onload = function() {
+        updateRentTable();
+    };
+</script>
+<script src="share.js"></script>
+</html>
