@@ -15,7 +15,7 @@ document.getElementById("showStampDuty").style.display = "inline-block";
   // Get form values
   sectorNo = document.querySelector("select[name='sector']").value;
   carpetArea = document.querySelector("input[name='area']").value;
-  area = parseFloat(carpetArea * 1.2).toFixed(2);
+  area = parseFloat(carpetArea * 1.2).toFixed(3);
   ghasara = document.querySelector("input[name='depghas']").value;
 // Sector wise values
 if (sectorNo == 1) {
