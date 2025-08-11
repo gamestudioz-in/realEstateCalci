@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>LEAVE AND LICENSE STAMP DUTY CALCULATOR</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#f8fafc',
+                        accent: '#00D4AA',
+                        text: '#1a202c',
+                        muted: '#64748b'
+                    },
+                    fontFamily: {
+                        'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+                        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+                    },
+                    animation: {
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'fade-out': 'fadeOut 0.3s ease-in',
+                        'modal-appear': 'modalAppear 0.3s ease-out',
+                        'modal-disappear': 'modalDisappear 0.2s ease-in',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            padding-top: 80px; /* Add padding for fixed navigation */
+        }
+        .text-enhanced {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        .reading-enhanced {
+            line-height: 1.7;
+            letter-spacing: -0.005em;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        /* Help Modal Animations */
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        @keyframes modalDisappear {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.95) translateY(-10px);
+            }
+        }
+        /* Dynamic grid based on container width */
+        .rent-cards-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        /* Compact Sticky Field Helper Styling */
+        .field-with-helper {
+            position: relative;
+        }
+        .field-helper {
+            background: #0066FF;
+            color: white;
+            border-radius: 0 0 0.75rem 0.75rem;
+            margin: 0;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            box-shadow: 0 1px 3px rgba(0, 102, 255, 0.15);
+            opacity: 0.9;
+        }
+        .field-helper i {
+            font-size: 0.75rem;
+        }
+        /* Special styling for license period field to match the tag */
+        .license-period-field {
+            border-radius: 0.75rem 0.75rem 0 0 !important;
+        }
+        /* Enhanced Form Labels for Maximum Readability */
+        .form-label {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1f2937;
+            letter-spacing: -0.02em;
+            line-height: 1.4;
+        }
+        /* Help Modal Styling */
+        .help-modal-backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        .help-modal-content {
+            animation: modalAppear 0.3s ease-out;
+        }
+        .help-modal-content.closing {
+            animation: modalDisappear 0.2s ease-in;
+        }
+        /* Mobile compact styling */
+        @media (max-width: 640px) {
+            body {
+                padding-top: 75px; /* Adjust for mobile nav height */
+            }
+            .rent-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .mobile-compact-card {
+                padding: 1rem !important;
+            }
+            .mobile-compact-card .card-title {
+                font-size: 1rem !important;
+            }
+            .mobile-compact-input {
+                height: 2.5rem !important;
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+                font-size: 0.875rem !important;
+            }
+            .mobile-compact-label {
+                font-size: 0.8125rem !important;
+                margin-bottom: 0.375rem !important;
+            }
+            .mobile-compact-grid {
+                gap: 0.75rem !important;
+            }
+            /* Comfortable mobile rupee icon spacing */
+            .mobile-rupee-fix {
+                padding-left: 1.75rem !important;
+            }
+            .mobile-rupee-icon {
+                left: 0.625rem !important;
+                font-size: 0.875rem !important;
+            }
+            /* Even more compact helper on mobile */
+            .field-helper {
+                padding: 0.1875rem 0.5rem;
+                font-size: 0.625rem;
+            }
+            .field-helper i {
+                font-size: 0.6875rem;
+            }
+            /* Optimized form labels for mobile */
+            .form-label {
+                font-size: 1rem;
+                font-weight: 700;
+                color: #1f2937;
+                line-height: 1.3;
+            }
+            /* Help modal responsive */
+            .help-modal-content {
+                max-width: 95vw;
+                margin: 1rem;
+            }
+        }
+        /* Tablet responsive */
+        @media (min-width: 641px) and (max-width: 1023px) {
+            .rent-cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            /* Enhanced form labels for tablet */
+            .form-label {
+                font-size: 1.1875rem;
+                font-weight: 700;
+                color: #1f2937;
+                line-height: 1.35;
+            }
+        }
+        /* Large screens */
+        @media (min-width: 1024px) {
+            .form-label {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #1f2937;
+                line-height: 1.4;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased pb-20">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-arrow-back text-white text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">Leave & License</span>
+                        <p class="text-gray-500 text-xs reading-enhanced">Return to main page</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-600 text-xs font-medium">Online</span>
+                    </div>
+                    <button id="helpButton" class="bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 text-sm border border-gray-200 hover:border-gray-300">
+                        <i class='bx bx-help-circle text-base'></i>
+                        <span>Help</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="fixed inset-0 help-modal-backdrop hidden items-center justify-center z-50">
+        <div class="help-modal-content bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[85vh] overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-primary to-blue-600 px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                        <i class='bx bx-help-circle text-white text-lg'></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">How to Use This Calculator</h2>
+                </div>
+                <button id="closeHelpButton" class="text-white hover:bg-white hover:bg-opacity-20 w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200">
+                    <i class='bx bx-x text-xl'></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto max-h-[calc(85vh-80px)]">
+            <!-- Step by Step Guide -->
+                <div class="space-y-5">
+                    <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">📋 Step-by-Step Guide</h3>
+                    
+                    <!-- Step 1 -->
+                    <div class="bg-blue-50 rounded-xl p-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">1</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">License Period</h4>
+                                <p class="text-gray-600 text-sm">Enter the total duration of your rental agreement in months (e.g., 11, 24, 36 months).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-accent text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">2</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Rent Configuration</h4>
+                                <p class="text-gray-600 text-sm mb-2">Set up your rent schedule:</p>
+                                <ul class="text-gray-600 text-sm space-y-1 ml-3">
+                                    <li>• Enter the "To Month" for each period</li>
+                                    <li>• Specify the monthly rent amount</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-orange-50 rounded-xl p-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">3</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Refundable Deposit</h4>
+                                <p class="text-gray-600 text-sm">Enter the security deposit amount that will be returned at the end of the agreement. </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-purple-50 rounded-xl p-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 mt-0.5">4</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 mb-1">Calculate & Review</h4>
+                                <p class="text-gray-600 text-sm">Click "Calculate" to get your detailed fee breakdown including stamp duty, registration charges, and total amount.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-4">💡 Helpful Tips</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-start space-x-2 text-sm text-gray-600">
+                            <i class='bx bx-bulb text-primary flex-shrink-0 mt-0.5'></i>
+                            <span>Use the "Reset" button to clear all fields and start over</span>
+                        </div>
+                        <div class="flex items-start space-x-2 text-sm text-gray-600">
+                            <i class='bx bx-bulb text-primary flex-shrink-0 mt-0.5'></i>
+                            <span>The calculator automatically adds new rent periods as you fill in the current one</span>
+                        </div>
+                        <div class="flex items-start space-x-2 text-sm text-gray-600">
+                            <i class='bx bx-bulb text-primary flex-shrink-0 mt-0.5'></i>
+                            <span>Your results can be shared as an image for your records</span>
+                        </div>
+                    </div>
+                </div>
+
+                           </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-6 py-4 flex justify-end">
+                <button id="closeHelpButtonFooter" class="bg-primary hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200">
+                    Got it, thanks!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Calculator Form -->
+        <div id="calculatorForm" class="space-y-8">
+            <!-- Header -->
+            <div class="text-center space-y-3">
+                <h1 class="text-3xl font-bold text-gray-900 text-enhanced">Stamp Duty Calculator</h1>
+                <p class="text-gray-600 text-base reading-enhanced">Calculate your Leave & License fees instantly</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="bg-white rounded-2xl shadow-card p-8 space-y-7">
+                <form id="regform" name="frm1" method="post" class="space-y-7">
+                    <!-- License Period with Compact Sticky Helper -->
+                    <div class="field-with-helper">
+                        <label for="totalMonths" class="block form-label mb-3">
+                            License Period
+                        </label>
+                        <div class="relative">
+                            <input 
+                                name="month" 
+                                type="number" 
+                                id="totalMonths" 
+                                required
+                                min="1" 
+                                max="120"
+                                value="11"
+                                class="license-period-field w-full h-14 px-4 bg-gray-50 border-2 border-transparent text-gray-900 text-base font-medium placeholder-gray-400 focus:bg-white focus:border-primary focus:shadow-focus transition-all duration-200 outline outline-gray-200"
+                                placeholder="11"
+                                onchange="updateRentTable()"
+                            >
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">months</span>
+                        </div>
+                        <div class="field-helper">
+                            <i class='bx bx-edit-alt'></i>
+                            <span>Editable. modify as needed.</span>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Rent Configuration -->
+                    <div class="space-y-4">
+                        <label class="block form-label">
+                            Rent Configuration
+                        </label>
+                        
+                        <!-- Dynamic Card-based Layout -->
+                        <div class="rent-cards-grid" id="rentCardsContainer">
+                            <!-- Rent period cards will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Refundable Deposit -->
+                    <div class="space-y-3">
+                        <label for="rd" class="block form-label">
+                            Refundable Deposit
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">₹</span>
+                            <input 
+                                name="deposit" 
+                                type="number" 
+                                id="rd" 
+                                required
+                                min="0"
+                                class="w-full h-14 pl-8 pr-4 bg-gray-50 border-2 border-transparent rounded-xl text-gray-900 text-base font-medium placeholder-gray-400 focus:bg-white focus:border-primary focus:shadow-focus transition-all duration-200 outline outline-gray-200"
+                                placeholder="Enter deposit amount"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <button 
+                            type="button" 
+                            class="h-12 bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 font-semibold rounded-xl transition-all duration-200 border border-gray-200 hover:border-gray-300 flex items-center justify-center space-x-2"
+                            onclick="resetForm()"
+                        >
+                            <i class='bx bx-refresh text-lg'></i>
+                            <span>Reset</span>
+                        </button>
+                        <button 
+                            type="button" 
+                            class="h-12 bg-primary hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200 text-base"
+                            onclick="stamp()"
+                        >
+                            Calculate
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="sharableDiv" class="hidden space-y-6">
+            <!-- Results Header -->
+            <div class="text-center space-y-3">
+                <div class="w-14 h-14 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mx-auto">
+                    <i class='bx bx-check text-accent text-2xl'></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 text-enhanced">Calculation Complete</h2>
+                <p class="text-gray-600 text-base reading-enhanced">Here's your detailed breakdown</p>
+            </div>
+
+            <!-- Results Card (This will be shared) -->
+            <div id="resultsCard" class="bg-white rounded-2xl shadow-card overflow-hidden max-w-2xl mx-auto">
+                <!-- License Details -->
+                <div class="p-6 space-y-5">
+                    <h3 class="font-semibold text-gray-900 text-base text-enhanced">License Details</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">License Period</span>
+                            <span class="font-semibold text-gray-900 text-enhanced"><span id="showLP">11</span> months</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">Refundable Deposit</span>
+                            <span class="font-semibold text-gray-900 text-enhanced">₹ <span id="showRD">0</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rent Breakdown Section -->
+                <div class="p-6 pt-0 space-y-4" id="rentBreakdownSection">
+                   <!---- <h4 class="font-semibold text-gray-900 text-sm text-enhanced">Rent Breakdown</h4>  ---->
+                    <div id="rentBreakdown" class="space-y-3">
+                        <!-- Rent periods will be dynamically added here -->
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="h-px bg-gray-100"></div>
+
+                <!-- Fee Breakdown -->
+                <div class="p-6 space-y-5">
+                    <h3 class="font-semibold text-gray-900 text-base text-enhanced">Fee Breakdown</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">Stamp Duty</span>
+                            <span class="font-semibold text-gray-900 text-enhanced">₹ <span id="showsd">0</span></span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">Registration Charges</span>
+                            <span class="font-semibold text-gray-900 text-enhanced">₹ 1,000</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">Document Handling</span>
+                            <span class="font-semibold text-gray-900 text-enhanced">₹ 300</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">Police NOC</span>
+                            <span class="font-semibold text-gray-900 text-enhanced">₹ 500</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600 font-medium reading-enhanced">Agent Service Fees</span>
+                            <span class="font-semibold text-gray-900 text-enhanced">₹ 1,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="bg-gray-50 p-6">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-gray-900 text-lg text-enhanced">Total Amount</span>
+                        <span class="text-3xl font-bold text-gray-900 text-enhanced">₹ <span id="showto">2,800</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3 max-w-2xl mx-auto">
+                <button 
+                    id="share" 
+                    class="hidden w-full h-12 bg-accent hover:bg-green-600 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-sm hover:shadow-md"
+                >
+                    <i class='bx bx-share-alt text-lg'></i>
+                    <span>Share Results</span>
+                </button>
+                
+                <button 
+                    id="back" 
+                    class="hidden w-full h-12 bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 font-semibold rounded-xl transition-all duration-200 border border-gray-200 hover:border-gray-300"
+                >
+                    New Calculation
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Fixed Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+                </div>
+                <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+                <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                <span class="text-gray-500 text-xs">v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Help Modal Functions
+        function showHelp() {
+            const modal = document.getElementById('helpModal');
+            const content = modal.querySelector('.help-modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Remove closing class if it exists
+            content.classList.remove('closing');
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideHelp() {
+            const modal = document.getElementById('helpModal');
+            const content = modal.querySelector('.help-modal-content');
+            
+            // Add closing animation
+            content.classList.add('closing');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                content.classList.remove('closing');
+                
+                // Restore body scroll
+                document.body.style.overflow = 'auto';
+            }, 200);
+        }
+
+        // Event Listeners for Help Modal
+        document.getElementById('helpButton').addEventListener('click', showHelp);
+        document.getElementById('closeHelpButton').addEventListener('click', hideHelp);
+        document.getElementById('closeHelpButtonFooter').addEventListener('click', hideHelp);
+
+        // Close modal when clicking on backdrop
+        document.getElementById('helpModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideHelp();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('helpModal');
+                if (!modal.classList.contains('hidden')) {
+                    hideHelp();
+                }
+            }
+        });
+
+        function formatIndianCurrency(amount) {
+            return Number(amount).toLocaleString('en-IN');
+        }
+
+        function showToast(message, type = 'error') {
+            const toast = document.createElement('div');
+            const bgColor = type === 'error' ? 'bg-red-500' : 'bg-green-500';
+            const icon = type === 'error' ? 'bx-x-circle' : 'bx-check-circle';
+            
+            toast.className = `fixed top-6 right-6 ${bgColor} text-white px-6 py-4 rounded-xl shadow-lg z-50 flex items-center space-x-3 animate-slide-in max-w-sm`;
+            toast.innerHTML = `
+                <i class='bx ${icon} text-xl flex-shrink-0'></i>
+                <span class="font-medium">${message}</span>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('animate-slide-in');
+                toast.classList.add('animate-fade-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function resetForm() {
+            document.getElementById("regform").reset();
+            document.getElementById('totalMonths').value = 11;
+            updateRentTable();
+            showToast('Form has been reset successfully!', 'success');
+        }
+
+        function updateRentTable() {
+            const totalMonths = parseInt(document.getElementById('totalMonths').value) || 11;
+            const container = document.getElementById('rentCardsContainer');
+            
+            // Clear existing cards
+            container.innerHTML = '';
+            
+            // Create first period card
+            createRentCard(1, totalMonths, 1);
+        }
+
+        function createRentCard(periodNumber, totalMonths, fromMonth) {
+            const container = document.getElementById('rentCardsContainer');
+            
+            const card = document.createElement('div');
+            card.className = 'rent-card mobile-compact-card bg-white border border-gray-200 rounded-xl p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow duration-200';
+            card.setAttribute('data-period', periodNumber);
+            
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="card-title font-semibold text-gray-900 text-lg">Period ${periodNumber}</span>
+                    ${periodNumber > 1 ? `<button type="button" class="remove-card-btn px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 text-sm font-medium rounded-lg transition-colors duration-200" onclick="removeRentCard(this)">Remove</button>` : ''}
+                </div>
+                <div class="grid grid-cols-2 gap-4 mobile-compact-grid">
+                    <div>
+                        <label class="mobile-compact-label block text-sm font-medium text-gray-600 mb-2">From Month</label>
+                        <input type="number" value="${fromMonth}" class="from-month mobile-compact-input w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm font-medium text-center" readonly>
+                    </div>
+                    <div>
+                        <label class="mobile-compact-label block text-sm font-medium text-gray-600 mb-2">To Month</label>
+                        <input type="number" class="to-month mobile-compact-input w-full h-12 px-4 bg-white border-2 border-gray-200 rounded-xl text-gray-900 text-sm font-medium placeholder-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-center" min="${fromMonth}" max="${totalMonths}" placeholder="To" onchange="validateRentCard(this)">
+                    </div>
+                </div>
+                <div>
+                    <label class="mobile-compact-label block text-sm font-medium text-gray-600 mb-2">Monthly Rent (₹)</label>
+                    <div class="relative">
+                        <span class="mobile-rupee-icon absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">₹</span>
+                        <input type="number" class="rent-amount mobile-compact-input mobile-rupee-fix w-full h-12 pl-8 pr-4 bg-white border-2 border-gray-200 rounded-xl text-gray-900 text-sm font-medium placeholder-gray-400 focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Enter amount" min="0" onchange="validateRentCard(this)">
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        }
+
+        function validateRentCard(element) {
+            const card = element.closest('.rent-card');
+            const toMonthInput = card.querySelector('.to-month');
+            const rentAmountInput = card.querySelector('.rent-amount');
+            const toMonth = parseInt(toMonthInput.value);
+            const rentAmount = parseFloat(rentAmountInput.value);
+            const totalMonths = parseInt(document.getElementById('totalMonths').value) || 11;
+            
+            // Validate to month
+            if (toMonth && toMonth > totalMonths) {
+                toMonthInput.value = totalMonths;
+            }
+            
+            // Check if this card is complete and if we need to add a new one
+            const allCards = document.querySelectorAll('.rent-card');
+            const currentCardIndex = Array.from(allCards).indexOf(card);
+            const isLastCard = currentCardIndex === allCards.length - 1;
+            
+            // Only proceed if both to month and rent amount are filled
+            if (toMonth && rentAmount && rentAmount > 0 && isLastCard && toMonth < totalMonths) {
+                const nextFromMonth = toMonth + 1;
+                const nextPeriodNumber = allCards.length + 1;
+                createRentCard(nextPeriodNumber, totalMonths, nextFromMonth);
+            }
+            
+            // Update period numbers and from months for all cards
+            updateAllCardNumbers();
+        }
+
+        function removeRentCard(button) {
+            const card = button.closest('.rent-card');
+            const allCards = document.querySelectorAll('.rent-card');
+            
+            if (allCards.length > 1) {
+                card.remove();
+                updateAllCardNumbers();
+            }
+        }
+
+        function updateAllCardNumbers() {
+            const cards = document.querySelectorAll('.rent-card');
+            let currentFromMonth = 1;
+            
+            cards.forEach((card, index) => {
+                const periodNumber = index + 1;
+                const periodSpan = card.querySelector('.card-title');
+                const fromMonthInput = card.querySelector('.from-month');
+                const toMonthInput = card.querySelector('.to-month');
+                const removeButton = card.querySelector('.remove-card-btn');
+                
+                // Update period number
+                periodSpan.textContent = `Period ${periodNumber}`;
+                card.setAttribute('data-period', periodNumber);
+                
+                // Update from month
+                fromMonthInput.value = currentFromMonth;
+                toMonthInput.min = currentFromMonth;
+                
+                // Show/hide remove button
+                if (removeButton) {
+                    if (periodNumber === 1) {
+                        removeButton.style.display = 'none';
+                    } else {
+                        removeButton.style.display = 'block';
+                    }
+                }
+                
+                const toMonthValue = parseInt(toMonthInput.value);
+                if (!isNaN(toMonthValue)) {
+                    currentFromMonth = toMonthValue + 1;
+                }
+            });
+        }
+
+        function stamp() {
+            const totalMonths = parseInt(document.getElementById('totalMonths').value);
+            const deposit = parseFloat(document.getElementById('rd').value);
+            const cards = document.querySelectorAll('.rent-card');
+            
+            if (!totalMonths || totalMonths <= 0) {
+                showToast('Please enter a valid license period', 'error');
+                return;
+            }
+            
+            // Validate deposit field - now required
+            if (isNaN(deposit) || deposit === null || deposit === undefined || document.getElementById('rd').value === '') {
+                showToast('Please enter a valid refundable deposit amount', 'error');
+                return;
+            }
+            
+            if (deposit < 0) {
+                showToast('Deposit amount cannot be negative', 'error');
+                return;
+            }
+            
+            // Validate and collect rent data
+            let rentData = [];
+            let totalRent = 0;
+            let rentBreakdown = [];
+            
+            for (let card of cards) {
+                const fromMonth = parseInt(card.querySelector('.from-month').value);
+                const toMonth = parseInt(card.querySelector('.to-month').value);
+                const rentAmount = parseFloat(card.querySelector('.rent-amount').value);
+                
+                if (!rentAmount || rentAmount <= 0) {
+                    showToast('Please enter valid rent amounts for all periods', 'error');
+                    return;
+                }
+                
+                if (isNaN(toMonth) || toMonth <= 0) {
+                    showToast('Please enter valid "To Month" values for all periods', 'error');
+                    return;
+                }
+                
+                if (toMonth < fromMonth) {
+                    showToast('To month cannot be less than from month', 'error');
+                    return;
+                }
+                
+                const monthsInPeriod = toMonth - fromMonth + 1;
+                const periodTotal = monthsInPeriod * rentAmount;
+                totalRent += periodTotal;
+                
+                rentBreakdown.push({
+                    from: fromMonth,
+                    to: toMonth,
+                    rent: rentAmount,
+                    months: monthsInPeriod,
+                    total: periodTotal
+                });
+            }
+            
+            // Check if all months are covered
+            const lastPeriod = rentBreakdown[rentBreakdown.length - 1];
+            if (lastPeriod.to < totalMonths) {
+                showToast(`Please ensure all months up to ${totalMonths} are covered`, 'error');
+                return;
+            }
+            
+            // Calculate stamp duty using original formula
+            const md = deposit * (totalMonths / 12) * 0.1;
+            const ta = md + totalRent;
+            const sd = ta * 0.0025;
+            const sdf = Math.round(sd);
+            
+            // Fixed charges
+            const rf = 1000;  // Registration fees
+            const af = 1000;  // Agent fees
+            const dhc = 300;  // DHC
+            const pnoc = 500; // Police NOC
+            const total = sdf + rf + af + dhc + pnoc;
+            
+            // Format for display
+            const depositIndian = formatIndianCurrency(deposit);
+            const sdIndian = formatIndianCurrency(sdf);
+            const totalIndian = formatIndianCurrency(total);
+            
+            // Update display
+            document.getElementById("showLP").innerHTML = totalMonths;
+            document.getElementById("showRD").innerHTML = depositIndian;
+            document.getElementById("showsd").innerHTML = sdIndian;
+            document.getElementById("showto").innerHTML = totalIndian;
+            
+            // Update rent breakdown in results
+            const rentBreakdownDiv = document.getElementById("rentBreakdown");
+            rentBreakdownDiv.innerHTML = '';
+            
+            rentBreakdown.forEach(period => {
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center';
+                div.innerHTML = `
+                    <span class="text-gray-600 font-medium reading-enhanced">Rent (${period.from} - ${period.to})</span>
+                    <span class="font-semibold text-primary text-enhanced">₹ ${formatIndianCurrency(period.rent)}</span>
+                `;
+                rentBreakdownDiv.appendChild(div);
+            });
+            
+            // Show results
+            document.getElementById("sharableDiv").classList.remove("hidden");
+            document.getElementById("calculatorForm").classList.add("hidden");
+            document.getElementById("share").classList.remove("hidden");
+            document.getElementById("back").classList.remove("hidden");
+            
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('share').addEventListener('click', function () {
+            // Show loading state
+            this.innerHTML = '<i class="bx bx-loader-alt animate-spin text-lg"></i><span>Generating...</span>';
+            
+            // Target only the results card for sharing
+            const cardToShare = document.getElementById('resultsCard');
+
+            html2canvas(cardToShare, {
+                scale: 3, // Higher scale for better quality
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                width: cardToShare.offsetWidth,
+                height: cardToShare.offsetHeight,
+                quality: 1.0,
+                allowTaint: false
+            }).then(canvas => {
+                const imageData = canvas.toDataURL('image/png', 1.0);
+
+                fetch(imageData)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], 'leave-and-license-stamp-duty.png', { type: 'image/png' });
+
+                        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                            navigator.share({
+                                files: [file],
+                                title: 'Leave & License Stamp Duty Calculation',
+                                text: 'My Leave & License stamp duty calculation',
+                            }).then(() => {
+                                showToast('Results shared successfully!', 'success');
+                            }).catch(() => {
+                                // Fallback to download
+                                const link = document.createElement('a');
+                                link.download = 'varying-rent-calculation.png';
+                                link.href = imageData;
+                                link.click();
+                                showToast('Results downloaded successfully!', 'success');
+                            });
+                        } else {
+                            // Fallback to download
+                            const link = document.createElement('a');
+                            link.download = 'varying-rent-calculation.png';
+                            link.href = imageData;
+                            link.click();
+                            showToast('Results downloaded successfully!', 'success');
+                        }
+                        
+                        // Reset button
+                        document.getElementById('share').innerHTML = '<i class="bx bx-share-alt text-lg"></i><span>Share Results</span>';
+                    })
+                    .catch(() => {
+                        showToast('Failed to generate image', 'error');
+                        document.getElementById('share').innerHTML = '<i class="bx bx-share-alt text-lg"></i><span>Share Results</span>';
+                    });
+            }).catch(() => {
+                showToast('Failed to capture results', 'error');
+                document.getElementById('share').innerHTML = '<i class="bx bx-share-alt text-lg"></i><span>Share Results</span>';
+            });
+        });
+
+        document.getElementById("back").addEventListener('click', function() {
+            document.getElementById("sharableDiv").classList.add("hidden");
+            document.getElementById("calculatorForm").classList.remove("hidden");
+            document.getElementById("share").classList.add("hidden");
+            document.getElementById("back").classList.add("hidden");
+            
+            document.getElementById("regform").reset();
+            // Reset default values
+            document.getElementById('totalMonths').value = 11;
+            // Don't set deposit value to 0, leave it blank
+            updateRentTable();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Initialize on page load
+        window.onload = function() {
+            updateRentTable();
+        };
+    </script>
+</body>
+</html>
