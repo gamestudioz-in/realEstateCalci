@@ -4,85 +4,303 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="style.css">
-        
-    <!-- ===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-
-    <title>READY RECKONER</title>
-    <style>
-        #city {
-            display: none;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ready Reckoner Calculator</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#f8fafc',
+                        accent: '#00D4AA',
+                        text: '#1a202c',
+                        muted: '#64748b'
+                    },
+                    fontFamily: {
+                        'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+                        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+                    },
+                    animation: {
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'marquee': 'marquee 12s linear infinite',
+                        'marquee-mobile': 'marqueeMobile 10s linear infinite',
+                    }
+                }
+            }
         }
-        #backArrow {
-            margin-left: 20px;
-            display: none;
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            padding-top: 80px; /* Add padding for fixed navigation */
+        }
+        .text-enhanced {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        .reading-enhanced {
+            line-height: 1.7;
+            letter-spacing: -0.005em;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes marqueeMobile {
+            0% { transform: translateX(50%); }
+            100% { transform: translateX(-100%); }
+        }
+        .property-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .property-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -8px rgba(0, 0, 0, 0.25);
+        }
+        .marquee-text {
+            animation: marquee 12s linear infinite;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        /* Mobile compact styling */
+        @media (max-width: 640px) {
+            body {
+                padding-top: 75px; /* Adjust for mobile nav height */
+            }
+            .marquee-text {
+                animation: marqueeMobile 10s linear infinite;
+            }
         }
     </style>
- </head>
-<body>
-    <div id="nav">
-      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="index.html" id="start"><i class='bx bx-home-alt'></i></a>E-Valuation RR</h3>
-      <button style="float: right; color: white; background: #f02c2d; border: 2px solid white; padding: 5px 7px; border-radius: 10px;" id="help">? HELP</button>
-     </div>
-    <br>
-    <div class="main">
-        <marquee>Ready Reckoner Rates updated for year 2025-26: valid till 31st March 2026.</marquee>
-        <div id="refresh"><button id="backArrow"><i class='bx bxs-chevrons-left' ></i>Back</button></div>
-        <div id="type">
-        <h4 style="margin:10px;">Select Property Type:</h4>
-        <center>
-            <button class="button-30" data-content="Flat" onclick="navigate(this)">FLAT</button><br><br>
-           <button class="button-30" data-content="Shop" onclick="navigate(this)">SHOP</button>
-        </center>
+</head>
+<body class="bg-gray-50 font-sans antialiased pb-20">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-arrow-back text-white text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">Ready Reckoner</span>
+                        <p class="text-gray-500 text-xs reading-enhanced">Return to main page</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-600 text-xs font-medium">Online</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="city">
-        <h4 style="margin: 10px;">Type: <b style="color: red;" id="sType">Haha</b></h4>
-        <h4 style="margin:10px;">Select City:</h4>
-        <center>
-            <button class="button-30" data-content="kha" onclick="kharghar()">Kharghar</button><br><br>
-           <button class="button-30" data-content="tal" onclick="taloja()">Taloja</button>
-        </center>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Update Notice -->
+        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-4 mb-8 overflow-hidden relative">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class='bx bx-info-circle text-white text-lg'></i>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="marquee-text text-emerald-800 font-medium text-sm">
+                        Ready Reckoner Rates updated for year 2025-26: valid till 31st March 2026.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button (Hidden initially) -->
+        <div id="backButtonContainer" class="mb-6 hidden">
+            <button id="backArrow" class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 group">
+                <div class="w-8 h-8 bg-gray-100 group-hover:bg-gray-200 rounded-lg flex items-center justify-center transition-colors duration-200">
+                    <i class='bx bx-chevron-left text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                </div>
+                <span class="font-medium">Back</span>
+            </button>
+        </div>
+
+        <!-- Property Type Selection -->
+        <div id="propertyTypeSection" class="space-y-6 animate-fade-in">
+            <div class="text-center space-y-3">
+                <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl mx-auto flex items-center justify-center shadow-soft">
+                    <i class='bx bx-buildings text-white text-2xl'></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 text-enhanced">Select Property Type</h2>
+                <!----<p class="text-gray-600 reading-enhanced">Choose the type of property you want to evaluate</p> --->
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <!-- Flat Button -->
+                <button class="property-button bg-white hover:bg-blue-50 border-2 border-gray-200 hover:border-primary rounded-xl p-6 space-y-4 shadow-card group" data-content="Flat" onclick="navigate(this)">
+                    <div class="w-12 h-12 bg-blue-100 group-hover:bg-primary rounded-xl flex items-center justify-center mx-auto transition-all duration-200">
+                        <i class='bx bx-home text-primary group-hover:text-white text-xl'></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-gray-900 text-lg group-hover:text-primary transition-colors duration-200">Flat</h3>
+                        <p class="text-gray-500 text-sm">Residential Apartment Units</p>  
+                    </div>
+                </button>
+
+                <!-- Shop Button -->
+                <button class="property-button bg-white hover:bg-emerald-50 border-2 border-gray-200 hover:border-emerald-500 rounded-xl p-6 space-y-4 shadow-card group" data-content="Shop" onclick="navigate(this)">
+                    <div class="w-12 h-12 bg-emerald-100 group-hover:bg-emerald-500 rounded-xl flex items-center justify-center mx-auto transition-all duration-200">
+                        <i class='bx bx-store text-emerald-500 group-hover:text-white text-xl'></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-gray-900 text-lg group-hover:text-emerald-600 transition-colors duration-200">Shop</h3>
+                        <p class="text-gray-500 text-sm">Commercial retail spaces</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- City Selection (Hidden initially) -->
+        <div id="citySection" class="space-y-6 animate-fade-in hidden">
+            <div class="text-center space-y-3">
+                <div class="w-16 h-16 bg-gradient-to-r from-primary to-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-soft">
+                    <i class='bx bx-map text-white text-2xl'></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 text-enhanced">Select City</h2>
+                <div class="flex items-center justify-center space-x-2">
+                    <span class="text-gray-600 reading-enhanced">Property Type:</span>
+                    <span class="bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold" id="selectedType">Flat</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <!-- Kharghar Button -->
+                <button class="property-button bg-white hover:bg-purple-50 border-2 border-gray-200 hover:border-purple-500 rounded-xl p-6 space-y-4 shadow-card group" onclick="kharghar()">
+                    <div class="w-12 h-12 bg-purple-100 group-hover:bg-purple-500 rounded-xl flex items-center justify-center mx-auto transition-all duration-200">
+                        <i class='bx bx-map-pin text-purple-500 group-hover:text-white text-xl'></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-gray-900 text-lg group-hover:text-purple-600 transition-colors duration-200">Kharghar</h3>
+                        <p class="text-gray-500 text-sm">CIDCO Sectors</p>
+                    </div>
+                </button>
+
+                <!-- Taloja Button -->
+                <button class="property-button bg-white hover:bg-orange-50 border-2 border-gray-200 hover:border-orange-500 rounded-xl p-6 space-y-4 shadow-card group" onclick="taloja()">
+                    <div class="w-12 h-12 bg-orange-100 group-hover:bg-orange-500 rounded-xl flex items-center justify-center mx-auto transition-all duration-200">
+                        <i class='bx bx-map-pin text-orange-500 group-hover:text-white text-xl'></i>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="font-bold text-gray-900 text-lg group-hover:text-orange-600 transition-colors duration-200">Taloja</h3>
+                        <p class="text-gray-500 text-sm">CIDCO Sectors</p>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
-    <div id="footer">
-     <p>Developed By <b>Yasir Divde</b></p>
- </div>
-<script>
-    var pType;
-    function navigate(button) {
-        if (button.closest('#type')) {
-            pType = button.getAttribute('data-content');
-        } 
-    document.getElementById("type").style.display = "none";
-        document.getElementById("city").style.display = "block"; 
-document.getElementById("sType").innerHTML = pType;
-document.getElementById("backArrow").style.display = "inline-block";
- }
- function kharghar() {
-           if (pType == "Flat") {
-               window.location.href = "Kharghar/flat.html";
-           }
-           else {
-               window.location.href = "Kharghar/shop.html";
-           }
-       }
-       function taloja() {
-           if (pType == "Flat") {
-               window.location.href = "Taloja/flat.html";
-           }
-           else {
-               window.location.href = "Taloja/shop.html";
-           }
-       }
-  document.getElementById("refresh").addEventListener('click', function() {
-            location.reload();
-        }); document.getElementById("help").addEventListener('click', function() {
-     window.location.href = 'help.html';
- });
-        </script>
+
+    <!-- Enhanced Fixed Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+                </div>
+                <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+                <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                <span class="text-gray-500 text-xs">v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var pType;
+        
+        function navigate(button) {
+            if (button.closest('#propertyTypeSection')) {
+                pType = button.getAttribute('data-content');
+            }
+            
+            // Hide property type section
+            document.getElementById("propertyTypeSection").style.display = "none";
+            
+            // Show city section
+            document.getElementById("citySection").classList.remove("hidden");
+            document.getElementById("citySection").style.display = "block";
+            
+            // Update selected type display
+            document.getElementById("selectedType").innerHTML = pType;
+            
+            // Show back button
+            document.getElementById("backButtonContainer").classList.remove("hidden");
+        }
+
+        function kharghar() {
+            if (pType == "Flat") {
+                window.location.href = "Kharghar/flat.html";
+            } else {
+                window.location.href = "Kharghar/shop.html";
+            }
+        }
+
+        function taloja() {
+            if (pType == "Flat") {
+                window.location.href = "Taloja/flat.html";
+            } else {
+                window.location.href = "Taloja/shop.html";
+            }
+        }
+
+        // Back button functionality
+        document.getElementById("backArrow").addEventListener('click', function() {
+            // Hide city section
+            document.getElementById("citySection").style.display = "none";
+            document.getElementById("citySection").classList.add("hidden");
+            
+            // Show property type section
+            document.getElementById("propertyTypeSection").style.display = "block";
+            
+            // Hide back button
+            document.getElementById("backButtonContainer").classList.add("hidden");
+        });
+
+        // Add smooth transitions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add staggered animations to buttons
+            const buttons = document.querySelectorAll('.property-button');
+            buttons.forEach((button, index) => {
+                button.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
 </body>
 </html>
