@@ -4,75 +4,222 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="manifest" href="manifest.json">
-    <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="style.css">
-        
-    <!-- ===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-
-    <title>READY RECKONER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Real Estate Calculator</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#f8fafc',
+                        accent: '#00D4AA',
+                        text: '#1a202c',
+                        muted: '#64748b'
+                    },
+                    fontFamily: {
+                        'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+                        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+                        'hover': '0 4px 20px -2px rgba(0, 0, 0, 0.1), 0 8px 25px -5px rgba(0, 0, 0, 0.1)',
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.4s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        #circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: #f02c2d;
-            border: 1px solid #2e6d8e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 2em;
+        body { 
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            padding-top: 80px; /* Add padding for fixed navigation */
         }
-        .container {
-            margin: 30px; 
-            background: #fafafa; 
-            height: 170px; 
-            display: block; 
-            text-align: center; 
-            border: 1px solid; 
-            border-radius: 20px;
+        .text-enhanced {
+            font-weight: 500;
+            letter-spacing: -0.02em;
         }
-        a {
-            text-decoration: none;
-            cursor: none;
-            color: #2e6d8e;
+        .reading-enhanced {
+            line-height: 1.7;
+            letter-spacing: -0.005em;
         }
-        a:hover {
-            color: #f02c2d;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .calculator-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .calculator-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px -6px rgba(0, 0, 0, 0.15);
+        }
+        /* Mobile compact styling */
+        @media (max-width: 640px) {
+            body {
+                padding-top: 75px; /* Adjust for mobile nav height */
+            }
+            .calculator-card {
+                padding: 1.5rem !important;
+            }
         }
     </style>
- </head>
-<body>
-    <div id="nav">
-      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="index.html" id="start"><i class='bx bx-home-alt'></i></a>Real Estate Calculator</h3>
-         </div>
-    <br>
-    <div class="main">
-        <a href="homeRR.html"><div class="container"><br>
-          <center> <div id="circle">RR</div></center><br>
-           <hr>
-           <label>Ready Reckoner Calculator</label>
-        </div></a>
-        <a href="LLSD/stamp-duty-calculator.html"><div class="container"><br>
-          <center> <div id="circle">SD</div></center><br>
-           <hr>
-           <label>Leave & License Stamp Duty Calculator</label>
-        </div></a>
+</head>
+<body class="bg-gray-50 font-sans antialiased pb-20">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-home-alt text-white text-lg group-hover:scale-110 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">Real Estate Calculator</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-600 text-xs font-medium">Online</span>
+                    </div>
+                   </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Calculator Cards -->
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Ready Reckoner Calculator -->
+            <a href="homeRR.html" class="group">
+                <div class="calculator-card bg-white rounded-xl shadow-card hover:shadow-hover p-6 space-y-4 animate-slide-up">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                <span class="text-white text-lg font-bold">RR</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 text-enhanced group-hover:text-emerald-600 transition-colors duration-200">
+                                    Ready Reckoner
+                                </h3>
+                                <p class="text-xs text-emerald-600 font-medium">Property Valuation</p>
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors duration-200">
+                            <i class='bx bx-right-arrow-alt text-emerald-600 group-hover:translate-x-0.5 transition-transform duration-200'></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 text-sm reading-enhanced">
+                        Calculate property valuations based on government-approved ready reckoner rates for accurate assessments.
+                    </p>
+
+                    <!-- Quick Features -->
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <div class="flex items-center space-x-1">
+                            <i class='bx bx-check-circle text-emerald-500'></i>
+                            <span>Gov. approved rates</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class='bx bx-calculator text-emerald-500'></i>
+                            <span>Instant calculation</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Stamp Duty Calculator -->
+            <a href="LLSD/stamp-duty-calculator.html" class="group">
+                <div class="calculator-card bg-white rounded-xl shadow-card hover:shadow-hover p-6 space-y-4 animate-slide-up" style="animation-delay: 0.2s;">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                <span class="text-white text-lg font-bold">SD</span>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 text-enhanced group-hover:text-primary transition-colors duration-200">
+                                    Stamp Duty Calculator
+                                </h3>
+                                <p class="text-xs text-primary font-medium">Leave & License</p>
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-200">
+                            <i class='bx bx-right-arrow-alt text-primary group-hover:translate-x-0.5 transition-transform duration-200'></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-gray-600 text-sm reading-enhanced">
+                        Calculate stamp duty and registration fees for Leave & License rental agreements with complete breakdown.
+                    </p>
+
+                    <!-- Quick Features -->
+                    <div class="flex items-center justify-between text-xs text-gray-500">
+                        <div class="flex items-center space-x-1">
+                            <i class='bx bx-check-circle text-primary'></i>
+                            <span>Varying rent periods</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class='bx bx-share-alt text-primary'></i>
+                            <span>Shareable results</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
     </div>
-    <div id="footer">
-     <p>Developed By <b>Yasir Divde</b></p>
- </div>
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("sw.js");
-    });
-  }
-</script>
+
+    <!-- Enhanced Fixed Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+                </div>
+                <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+                <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                <span class="text-gray-500 text-xs">v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Service Worker Registration
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("sw.js");
+            });
+        }
+
+        // Add loading animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger animation for cards
+            const cards = document.querySelectorAll('.calculator-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
 </body>
 </html>
