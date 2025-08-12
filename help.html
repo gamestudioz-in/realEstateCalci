@@ -4,66 +4,275 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- ===== CSS ===== -->
-    <link rel="stylesheet" href="style.css">
-        
-    <!-- ===== Boxicons CSS ===== -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
-
-    <title>READY RECKONER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Ready Reckoner - Help</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066FF',
+                        secondary: '#f8fafc',
+                        accent: '#00D4AA',
+                        text: '#1a202c',
+                        muted: '#64748b'
+                    },
+                    fontFamily: {
+                        'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+                        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+                    },
+                    animation: {
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'marquee': 'marquee 12s linear infinite',
+                        'marquee-mobile': 'marqueeMobile 10s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        #backArrow {
-            margin-left: 20px;
+        body { 
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            padding-top: 80px;
+            padding-bottom: 80px;
         }
-        #helpSection {
-            margin: 20px;
+        .text-enhanced {
+            font-weight: 500;
+            letter-spacing: -0.02em;
         }
-        #helpSection p {
-            text-align: justify;
+        .reading-enhanced {
+            line-height: 1.7;
+            letter-spacing: -0.005em;
         }
- </style>
- </head>
-<body>
-    <div id="nav">
-      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="index.html" id="start"><i class='bx bx-home-alt'></i></a>E-Valuation RR - Help</h3>
-      <button style="float: right; color: white; background: #f02c2d; border: 2px solid white; padding: 5px 7px; border-radius: 10px;" id="help">? HELP</button>
-  </div>
-    <br>
-    <div class="main">
-     <marquee>Ready Reckoner Rates updated for year 2025-26: valid till 31st March 2026.</marquee>
-        <div id="refresh"><a href="homeRR.html"><button id="backArrow"><i class='bx bxs-chevrons-left' ></i>Back</button></a></div>
- <div id="helpSection">
-  <h4>1. Select Sector Number: </h4>
-  <p>
-      Use the dropdown menu to select the appropriate sector number for the property you are evaluating. <br> Each sector represents a predefined geographical division, and the <b>rates may vary</b> depending on the sector selected.   
-  </p><br><hr><br>
-  <h4>2. Carpet Area: </h4>
-  <p>
-      Enter the carpet area of the property in <b>square meters (Sq. Mtr.) </b>as measured or specified in property documents <b>(Index II)</b>. <br> Ensure accurate measurement to avoid discrepancies in valuation.
- </p><br><hr><br>
-<h4>3. Terrace / Open Balcony Area: </h4>
-<p>
-    In cases where the <b>terrace</b> or <b>open balcony area</b> is explicitly specified as a separate entry in the registered property document <b>(Index II)</b>, the area must be entered in <b>square meters (Sq. Mtr.)</b>. <br>
-    If such an area is not distinctly mentioned in the Index II, kindly enter <b>0</b> in this field.
-</p><br><hr><br>
-<h4>4. Depreciation / Ghasara: </h4>
-  <p>
-      Depreciation or "Ghasara" accounts for the age of the property and the reduction in its value over time due to wear and tear or obsolescence. <br> Enter the number of years since the property was constructed. <br> <h5>Example: </h5>
-  <p>
-For a building that recieved OC in year 2014: <br>
-Current Year - 2014 = 2024 - 2014 = 10.<br> Therefore, Enter "10" in this field.
-  </p>    
- </p><br><hr><br>
-<h4>5. Floor Number: </h4>
-  <p>
- Enter the numerical value of the floor number.<br> For example, ground floor = 0, first floor = 1, second floor = 2, and so on.
- </p>
-  </div><br><br><br>    
- <div id="footer">
-     <p>Developed By <b>Yasir Divde</b></p>
- </div>
- <script src="share.js"></script>
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes marqueeMobile {
+            0% { transform: translateX(50%); }
+            100% { transform: translateX(-100%); }
+        }
+        .marquee-text {
+            animation: marquee 12s linear infinite;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        /* Mobile compact styling */
+        @media (max-width: 640px) {
+            body {
+                padding-top: 75px;
+            }
+            .marquee-text {
+                animation: marqueeMobile 10s linear infinite;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="../homeRR.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-arrow-back text-white text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">Help</span>
+                        <p class="text-gray-500 text-xs reading-enhanced">Return to ready reckoner page</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-600 text-xs font-medium">Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Update Notice -->
+        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl p-4 mb-8 overflow-hidden relative">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class='bx bx-info-circle text-white text-lg'></i>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="marquee-text text-emerald-800 font-medium text-sm">
+                        Ready Reckoner Rates updated for year 2025-26: valid till 31st March 2026.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Help Content -->
+        <div class="space-y-8 animate-fade-in">
+            <!-- Page Header -->
+            <div class="text-center space-y-3 mb-12">
+                <div class="w-16 h-16 bg-gradient-to-r from-primary to-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-soft">
+                    <i class='bx bx-help-circle text-white text-2xl'></i>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 text-enhanced">User Guide</h1>
+                <p class="text-gray-600 reading-enhanced">Learn how to use the property valuation calculator</p>
+            </div>
+
+            <!-- Help Sections -->
+            <div class="space-y-6">
+                <!-- Section 1 -->
+                <div class="bg-white rounded-xl p-6 shadow-card">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-primary font-bold">1</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3 text-enhanced">Select Sector Number</h3>
+                            <p class="text-gray-600 leading-relaxed reading-enhanced">
+                                Use the dropdown menu to select the appropriate sector number for the property you are evaluating. 
+                                Each sector represents a predefined geographical division, and the <span class="font-semibold text-gray-800">rates may vary</span> depending on the sector selected.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="bg-white rounded-xl p-6 shadow-card">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-emerald-600 font-bold">2</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3 text-enhanced">Carpet Area</h3>
+                            <p class="text-gray-600 leading-relaxed reading-enhanced">
+                                Enter the carpet area of the property in <span class="font-semibold text-gray-800">square meters (Sq. Mtr.)</span> as measured or specified in property documents <span class="font-semibold text-gray-800">(Index II)</span>. 
+                                Ensure accurate measurement to avoid discrepancies in valuation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="bg-white rounded-xl p-6 shadow-card">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-purple-600 font-bold">3</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3 text-enhanced">Terrace / Open Balcony Area</h3>
+                            <p class="text-gray-600 leading-relaxed reading-enhanced">
+                                In cases where the <span class="font-semibold text-gray-800">terrace</span> or <span class="font-semibold text-gray-800">open balcony area</span> is explicitly specified as a separate entry in the registered property document <span class="font-semibold text-gray-800">(Index II)</span>, the area must be entered in <span class="font-semibold text-gray-800">square meters (Sq. Mtr.)</span>.
+                                <br><br>
+                                If such an area is not distinctly mentioned in the Index II, kindly enter <span class="font-semibold text-gray-800">0</span> in this field.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="bg-white rounded-xl p-6 shadow-card">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-orange-600 font-bold">4</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3 text-enhanced">Depreciation / Ghasara</h3>
+                            <p class="text-gray-600 leading-relaxed reading-enhanced mb-4">
+                                Depreciation or "Ghasara" accounts for the age of the property and the reduction in its value over time due to wear and tear or obsolescence. 
+                                Enter the number of years since the property was constructed.
+                            </p>
+                            <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-primary">
+                                <h4 class="font-semibold text-primary mb-2">Example:</h4>
+                                <p class="text-gray-700 text-sm leading-relaxed">
+                                    For a building that received OC in year 2014:<br>
+                                    Current Year - 2014 = 2024 - 2014 = 10<br>
+                                    Therefore, Enter <span class="font-semibold">"10"</span> in this field.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 5 -->
+                <div class="bg-white rounded-xl p-6 shadow-card">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-teal-600 font-bold">5</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3 text-enhanced">Floor Number</h3>
+                            <p class="text-gray-600 leading-relaxed reading-enhanced">
+                                Enter the numerical value of the floor number.<br>
+                               <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-primary">
+                                <h4 class="font-semibold text-primary mb-2">Example:</h4>
+                                <p class="text-gray-700 text-sm leading-relaxed">
+                                    ground floor = 0, first floor = 1, second floor = 2, and so on.<br>
+                               </p>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Fixed Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+                </div>
+                <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+                <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                <span class="text-gray-500 text-xs">v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth transitions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add staggered animations to help sections
+            const sections = document.querySelectorAll('.bg-white.rounded-xl');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.1}s`;
+                section.classList.add('animate-fade-in');
+            });
+        });
+    </script>
 </body>
 </html>
