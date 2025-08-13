@@ -7,9 +7,13 @@ var year = today.getFullYear();
 var currentDate = `${day} ${monthShort}. ${year}`;
 
 function stamp() {
-  //Hide & Seek
-  document.getElementById("valform").style.display = "none"; document.getElementById("sharableDiv").style.display = "block";
-  document.getElementById("share").style.display = "inline-block";  document.getElementById("showStampDuty").style.display = "inline-block";
+  // Hide form and show results section - FIXED
+  document.getElementById("valform").style.display = "none";
+  
+  // Show results section AND the sharableDiv (table container)
+  document.getElementById("resultsSection").classList.remove("hidden");
+  document.getElementById("resultsSection").style.display = "block";
+  document.getElementById("sharableDiv").style.display = "block"; // ADD THIS LINE
 
   // Get form values
   sectorNo = document.querySelector("select[name='sector']").value;
@@ -18,7 +22,8 @@ function stamp() {
   area = parseFloat(carpetArea * 1.2).toFixed(3);
   ghasara = document.querySelector("input[name='depghas']").value;
   floorNumber = document.querySelector("input[name='floor']").value;
-// Sector wise values
+
+// All your existing sector logic (keeping it exactly as is)
 if (sectorNo == 1) {
     resiValue = 94900;
     landValue = 41700;
@@ -203,6 +208,7 @@ else {
     resiValue = 0;
     landValue = 0;
 }
+
 // Floor Wise Values
 if (floorNumber < 5) {
     floorRise = 1;
@@ -216,6 +222,7 @@ else if (floorNumber >=11 && floorNumber <= 20) {
 else if (floorNumber > 20) {
     floorRise = 1.10;
 }
+
 //Depreciation Wise Values
 if (ghasara < 3) {
     ghasaraFall = 0;
@@ -254,16 +261,16 @@ if(terraceArea == 0) {
 }
   document.getElementById("printDate").innerHTML = currentDate;
   document.getElementById("SecNo").innerHTML = sectorNo;
-  document.getElementById("PropValue").innerHTML = resiValue;
-  document.getElementById("LandValue").innerHTML = landValue;
+  document.getElementById("PropValue").innerHTML = formatIndianNumber(resiValue);
+  document.getElementById("LandValue").innerHTML = formatIndianNumber(landValue);
   document.getElementById("CArea").innerHTML = area;
   document.getElementById("TerArea").innerHTML = terraceArea;
   document.getElementById("flrN").innerHTML = floorNumber;
   document.getElementById("ghasara1").innerHTML = ghasara;
   document.getElementById("ghasara2").innerHTML = ghasaraFall;
-  document.getElementById("AppRate").innerHTML = applicableRate;
+  document.getElementById("AppRate").innerHTML = formatIndianNumber(applicableRate);
   document.getElementById("totalN").innerHTML = formattedTotal;
   document.getElementById("totalW").innerHTML = wordsTotal;
-  document.getElementById("sdMale").innerHTML = sdChargesMale;
-  document.getElementById("sdFemale").innerHTML = sdChargesFemale;
+  document.getElementById("sdMale").innerHTML = '₹' + sdChargesMale;
+  document.getElementById("sdFemale").innerHTML = '₹' + sdChargesFemale;
 }
