@@ -5,197 +5,824 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <title>Ready Reckoner Valuation</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?material+Symbols+Outlined" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0066FF',
+            secondary: '#f8fafc',
+            accent: '#00D4AA',
+            text: '#1a202c',
+            muted: '#64748b'
+          },
+          fontFamily: {
+            'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+            'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+            'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+          },
+          animation: {
+            'slide-in': 'slideIn 0.3s ease-out',
+            'fade-in': 'fadeIn 0.4s ease-out',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      padding-top: 80px;
+      margin: 0;
+      padding-bottom: 80px;
+    }
+    img {
+        display: inline-block;
+    }
+    .text-enhanced {
+        font-weight: 500;
+        letter-spacing: -0.02em;
+    }
+    .reading-enhanced {
+        line-height: 1.7;
+        letter-spacing: -0.005em;
+    }
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* ✅ ENHANCED: Compact spacing with improved font sizes and better borders */
+    .valuation-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 2px solid #0066FF;
+      table-layout: fixed;
+    }
+
+    .valuation-table th {
+      background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+      color: white;
+      font-weight: 600;
+      padding: 8px 10px;
+      text-align: left;
+      border: 1px solid #333333;
+      font-size: 17px;
+      line-height: 1.3;
+      width: 25%;
+    }
+
+    .valuation-table td {
+      padding: 6px 10px;
+      border: 1px solid #333333;
+      text-align: left;
+      font-size: 16px;
+      color: #0d1117;
+      line-height: 1.4;
+      vertical-align: top;
+      width: 25%;
+      font-weight: 400;
+    }
+
+    .valuation-table td b,
+    .valuation-table td strong {
+      font-weight: 600;
+      color: #000000;
+      font-size: 16px;
+    }
+
+    .valuation-table td[colspan="2"] {
+      width: 50% !important;
+    }
+    .valuation-table td[colspan="3"] {
+      width: 75% !important;
+    }
+    .valuation-table td[colspan="4"],
+    .valuation-table th[colspan="4"] {
+      width: 100% !important;
+    }
+
+    .valuation-table td[style*="background: #e0f2fe"] {
+      background: #e6f3ff !important;
+      color: #0066FF !important;
+      font-size: 17px !important;
+      font-weight: 600 !important;
+      padding: 8px 10px !important;
+      border: 1px solid #333333 !important;
+    }
+
+    .valuation-table tr[style*="background: #fee2e2"] td {
+      font-size: 20px !important;
+      font-weight: 600 !important;
+      padding: 8px 10px !important;
+      border: 1px solid #333333 !important;
+    }
+
+    .valuation-table #totalN {
+      font-size: 26px !important;
+      font-weight: 700 !important;
+    }
+
+    .note {
+      background: #f9fafb !important;
+      font-style: italic;
+      color: #0d1117 !important;
+      font-size: 15px !important;
+      line-height: 1.4 !important;
+      padding: 6px 10px !important;
+      border: 1px solid #333333 !important;
+    }
+
+    #sharableDiv {
+      padding: 0px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e5e7eb;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+      min-width: 100%;
+      box-sizing: border-box;
+      overflow: visible;
+    }
+
+    /* ✅ NEW: Styling for modal snapshot functionality */
+    .modal-snapshottable {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    @media (max-width: 640px) {
+      .valuation-table th {
+        font-size: 15px;
+        padding: 6px 8px;
+      }
+      
+      .valuation-table td {
+        font-size: 15px;
+        padding: 5px 8px;
+        color: #0d1117;
+      }
+      
+      .valuation-table td[style*="background: #e0f2fe"],
+      .valuation-table td[style*="background: #e6f3ff"] {
+        font-size: 15px !important;
+        padding: 6px 8px !important;
+        background: #e6f3ff !important;
+        color: #0066FF !important;
+      }
+      
+      .valuation-table tr[style*="background: #fee2e2"] td {
+        font-size: 18px !important;
+        padding: 6px 8px !important;
+      }
+      
+      .valuation-table #totalN {
+        font-size: 22px !important;
+      }
+      
+      .note {
+        font-size: 14px !important;
+        padding: 5px 8px !important;
+        color: #0d1117 !important;
+      }
+    }
+  </style>
 </head>
-<body>
-  <div id="nav">
-      <h3 style="color: white; font-size: 18px; float: left; margin-top: 5px;"><a href="../index.html" id="start"><i class='bx bx-home-alt'></i></a>E-Valuation RR</h3>
-      <button style="float: right; color: white; background: #f02c2d; border: 2px solid white; padding: 5px 7px; border-radius: 10px;" id="help">? HELP</button>
-  </div>
-  <div class="wrapper">
-  	<div class="registration_form">
-  	    <a href="../homeRR.html"><button id="backArrow"><i class='bx bxs-chevrons-left' ></i>Back</button></a>
-  	    <button id="showStampDuty"><i class='bx bx-search' ></i>Stamp Duty</button>
-  	     
-   <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <table>
-        <tr>
-          <td>Stamp Duty Charges (Male 7%)</td>
-          <td id="sdMale">3,00,000</td>
-        </tr>
-        <tr>
-          <td>Stamp Duty Charges (Female 6%)</td>
-          <td id="sdFemale">2,50,000</td>
-        </tr>
-        <tr>
-          <td>Registration Fees</td>
-          <td>30,000</td>
-        </tr>
-        <tr>
-            <td colspan="2">1. One percent rebate on stamp duty for women in Maharashtra State (w.e.f. 01/04/2021)<br>2. Value is Rounded to the next 100.</td>
-        </tr>
-      </table>
-      <br>
-      <button class="close-btn" id="closeModalBtn">Close</button>
+<body class="bg-gray-50 font-sans antialiased">
+ <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-arrow-back text-white text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">E- Valuation</span>
+                        <p class="text-gray-500 text-xs reading-enhanced">Return to main page</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-green-600 text-xs font-medium">Online</span>
+                    </div>
+                    <button id="helpButton" class="bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 px-4 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 text-sm border border-gray-200 hover:border-gray-300">
+                        <i class='bx bx-help-circle text-base'></i>
+                        <span>Help</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+  <!-- Main Container -->
+  <div class="max-w-4xl mx-auto px-6 py-8">
+    
+    <!-- ✅ UPDATED: Stamp Duty Modal with Agreement Value -->
+    <div class="modal-overlay fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-50 hidden" id="modalOverlay">
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="modal-snapshottable" id="modalContent">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-semibold text-gray-900 flex items-center space-x-2">
+              <i class='bx bx-calculator text-primary'></i>
+              <span>Stamp Duty Calculator</span>
+            </h3>
+            <!-- ✅ NEW: Snapshot button for modal -->
+            <button id="modalSnapshotBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-800 p-2 rounded-lg transition-all duration-200 flex items-center justify-center" title="Share Stamp Duty Details">
+              <i class='bx bx-camera text-lg'></i>
+            </button>
+          </div>
+          
+          <!-- ✅ NEW: Agreement Value Section -->
+          <div class="mb-4 p-3 bg-green-50 rounded-lg border border-green-200">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center space-x-2">
+                <i class='bx bx-file-doc text-green-600'></i>
+                <span class="text-gray-700 font-medium">Agreement Value</span>
+              </div>
+              <span class="font-bold text-gray-900 text-lg" id="agreementValue">₹72,67,300</span>
+            </div>
+            <p class="text-xs text-green-700 mt-1">Total valuation amount on which stamp duty is calculated</p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div class="flex items-center space-x-2">
+                <i class='bx bx-male text-blue-500'></i>
+                <span class="text-gray-700">Male Buyer (7%)</span>
+              </div>
+              <span class="font-semibold text-gray-900" id="sdMale">3,00,000</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-pink-50 rounded-lg">
+              <div class="flex items-center space-x-2">
+                <i class='bx bx-female text-pink-500'></i>
+                <span class="text-gray-700">Female Buyer (6%)</span>
+              </div>
+              <span class="font-semibold text-gray-900" id="sdFemale">2,50,000</span>
+            </div>
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div class="flex items-center space-x-2">
+                <i class='bx bx-receipt text-gray-500'></i>
+                <span class="text-gray-700">Registration Fees</span>
+              </div>
+              <span class="font-semibold text-gray-900">₹30,000</span>
+            </div>
+          </div>
+          <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm text-blue-800">
+            <p class="mb-1">1. One percent rebate on stamp duty for women in Maharashtra State (w.e.f. 01/04/2021)</p>
+            <p>2. Value is rounded to the next 100.</p>
+          </div>
+          <button class="close-btn w-full mt-6 bg-primary hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors duration-200" id="closeModalBtn">
+            Close
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
 
-  		<form id="valform" name="frm1" method="post">
-  			<div class="form_wrap">
-  			 <div class="input_wrap">
-  		  			<label for="location">Location</label>
- 		       <p style="color: #2e6d8e; background: #d6e6f1; border:1px solid #2e6d8e; padding: 5px 10px; display: inline-block; border-radius: 20px;">Kharghar</p>
- 			 			<label for="typeLocation">Type</label>
- 		      <p style="color: #2e6d8e; background: #d6e6f1; border:1px solid #2e6d8e; padding: 5px 10px; display: inline-block; border-radius: 20px;">Shop</p>
-  				</div>
+    <!-- Form Section -->
+    <div id="valform" class="space-y-6 animate-fade-in">
+      <!-- ✅ UPDATED: Property Info Header for Shop -->
+      <div class="text-center space-y-3">
+        <div class="flex items-center justify-center space-x-6">
+          <div class="flex items-center space-x-2">
+            <i class='bx bx-map-pin text-emerald-500'></i>
+            <span class="text-emerald-700 font-medium">Kharghar</span>
+          </div>
+          <div class="w-1 h-1 bg-gray-300 rounded-full"></div>
+          <div class="flex items-center space-x-2">
+            <i class='bx bx-store text-purple-500'></i>
+            <span class="text-purple-700 font-medium">Shop</span>
+          </div>
+        </div>
+      </div>
 
-  				<div class="input_wrap">
-   	 			<label for="sector">Select Sector Number</label>
-  	  <select name="sector" required>
-  	      <option value="0">Click to Change</option>
-  	          <option value="1">Sector 1</option>
-  	          <option value="2">Sector 2</option>
-  	          <option value="3">Sector 3</option>
-  	          <option value="4">Sector 4</option>
-  	          <option value="5">Sector 5</option>
-  	          <option value="6">Sector 6</option>
-  	          <option value="7">Sector 7</option>
-  	          <option value="8">Sector 8</option>
-  	          <option value="9">Sector 9</option>
-  	          <option value="10">Sector 10</option>
-  	          <option value="11">Sector 11</option>
-  	          <option value="12">Sector 12</option>
-  	          <option value="13">Sector 13</option>
-  	          <option value="14">Sector 14</option>
-  	          <option value="15">Sector 15</option>
-  	          <option value="16">Sector 16</option>
-  	          <option value="17">Sector 17</option>
-  	          <option value="18">Sector 18</option>
-  	          <option value="19">Sector 19</option>
-  	          <option value="20">Sector 20</option>
-  	          <option value="21">Sector 21</option>
-  	          <option value="22">Sector 22</option>
-  	          <option value="23">Sector 23</option>
-  	          <option value="24">Sector 24</option>
-  	          <option value="25">Sector 25</option>
-  	          <option value="26">Sector 26</option>
-  	          <option value="27">Sector 27</option>
-  	          <option value="28">Sector 28</option>
-  	          <option value="29">Sector 29</option>
-  	          <option value="30">Sector 30</option>
-  	          <option value="31">Sector 31</option>
-  	          <option value="32">Sector 32</option>
-  	          <option value="33">Sector 33</option>
+      <!-- ✅ UPDATED: Form with Shop-specific fields -->
+      <form name="frm1" method="post" class="bg-white rounded-xl p-6 shadow-card space-y-6" id="valuationForm">
+        <!-- Sector Selection -->
+        <div class="space-y-2">
+          <label for="sector" class="block text-sm font-semibold text-gray-700">Select Sector Number <span class="text-red-500">*</span></label>
+          <select name="sector" required class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 text-sm font-medium focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200 outline-none">
+            <option value="">Click to Change</option>
+            <option value="1">Sector 1</option>
+            <option value="2">Sector 2</option>
+            <option value="3">Sector 3</option>
+            <option value="4">Sector 4</option>
+            <option value="5">Sector 5</option>
+            <option value="6">Sector 6</option>
+            <option value="7">Sector 7</option>
+            <option value="8">Sector 8</option>
+            <option value="9">Sector 9</option>
+            <option value="10">Sector 10</option>
+            <option value="11">Sector 11</option>
+            <option value="12">Sector 12</option>
+            <option value="13">Sector 13</option>
+            <option value="14">Sector 14</option>
+            <option value="15">Sector 15</option>
+            <option value="16">Sector 16</option>
+            <option value="17">Sector 17</option>
+            <option value="18">Sector 18</option>
+            <option value="19">Sector 19</option>
+            <option value="20">Sector 20</option>
+            <option value="21">Sector 21</option>
+            <option value="22">Sector 22</option>
+            <option value="23">Sector 23</option>
+            <option value="24">Sector 24</option>
+            <option value="25">Sector 25</option>
+            <option value="26">Sector 26</option>
+            <option value="27">Sector 27</option>
+            <option value="28">Sector 28</option>
+            <option value="29">Sector 29</option>
+            <option value="30">Sector 30</option>
+            <option value="31">Sector 31</option>
+            <option value="32">Sector 32</option>
+            <option value="33">Sector 33</option>
             <option value="34">Sector 34</option>
             <option value="35">Sector 35</option>
             <option value="36">Sector 36</option>
             <option value="37">Sector 37</option>
             <option value="38">Sector 38</option>
-             <option value="39">Sector 39</option>
-             <option value="40">Sector 40</option>
-             <option value="41">Sector 41</option>
-             <option value="42">Sector 42</option>
-             <option value="43">Sector 43</option>
-             <option value="44">Sector 44</option>
-             <option value="45">Sector 45</option>
-  	  </select>
-  				</div>
-  					<div class="input_wrap">
-  		 			<label for="area">Carpet Area (in Sq. Mtr)</label>
- 		<input name="area" type="number" id="PropArea" required>
-  				</div>
-  				<div class="input_wrap">
-  					<label for="depreciation">Depreciation/Ghasara (in Years)</label>
-  					<input name="depghas" type="number" id="depghas" required>
-  				</div>
- 				<div class="input_wrap">
-  					<button type="button" class="submit_btn" onclick="stamp()">CALCULATE</button>
-  				</div>
-  			</div>
-  		</form><br>
-  	<div id="sharableDiv">
-    <table class="valuation-table">
-    <tr>
-      <th colspan="4">E- Valuation <span style="float: right;" id="printDate">date</span></th>
-    </tr>
-    <tr>
-      <td colspan="4">Valuation Year: <b>2025</b></td>
-    </tr>
-    <tr>
-    <td colspan="1">District: <b>Raigad</b></td>
-    <td colspan="1">Taluka: <b>Panvel</b></td>
-    <td colspan="2">Type: <br><b>Shop</b></td>
-    </tr>
-    <tr>
-      <td colspan="4">Village: <b>Kharghar CIDCO Sec. No. <span id="SecNo">34</span></b></td>
-    </tr>
-    <tr>
-      <td colspan="2">Construction Type: <b>RCC</b></td>
-      <td colspan="2">Plot No./Survey No. <b>NA</b></td>
-    </tr>
-    <tr>
-      <td colspan="4" style="background: #d6e6f1; color: #2e6d8e;"><b>Rates Applicable (Per Sq. Mt)</b></td>
-    </tr>
-    <tr>
-      <td colspan="2">Shop: <br><b><span id="PropValue">98900</span></b></td>
-      <td colspan="2">Open Land: <br><b><span id="LandValue">35100</span></b></td>
-    </tr>
-    <tr>
-      <th style="background: #d6e6f1; color: #2e6d8e;" colspan="4">Property Details</th>
-    </tr>
-    <tr>
-      <td colspan="3">Built-up Area</td>
-      <td colspan="1"><b><span id="CArea">76.02</span> m²</b></td>
-    </tr>
-    <tr>
-      <td colspan="3">Floor Number</td>
-      <td colspan="1"><b><span id="flrN">Ground Floor</span></b></td>
-    </tr>
-    <tr>
-      <td colspan="3">Property Age (in years)</td>
-      <td colspan="1"><b><span id="ghasara1">11</span>y</b></td>
-    </tr>
-    <tr>
-      <th style="background: #d6e6f1; color: #2e6d8e;" colspan="4">Valuation Details</th>
-    </tr>
-    <tr>
-      <td colspan="2">Applicable Rate</td>
-      <td colspan="2"><b><span id="AppRate">98484</span></b></td>
-    </tr>
-    <tr>
-      <td colspan="2">Depreciation</td>
-      <td colspan="2"><b><span id="ghasara2">11</span></b></td>
+            <option value="39">Sector 39</option>
+            <option value="40">Sector 40</option>
+            <option value="41">Sector 41</option>
+            <option value="42">Sector 42</option>
+            <option value="43">Sector 43</option>
+          </select>
+        </div>
 
-    </tr>
-    <tr style="background: #fee2e2;">
-      <td colspan="1">Total</td>
-      <td colspan="3"><b><span id="totalN" style="color: #f02c2d; font-size: 20px;">72,67,300</span></b></td>
-    </tr>
-    <tr>
-        <td colspan="1">in Words</td>
-      <td colspan="3"><b><span id="totalW">Seventy Two Lacs Sixty Seven Thousand Three Hundred</span> Only</b></td>
-    </tr>
-    <tr>
-      <td colspan="4" class="note"><b>Note: </b>Final Valuation is rounded to the next 100/-.</td>
-    </tr>
-  </table>
+        <!-- ✅ SIMPLIFIED: Shop-specific input fields (simplified from flat fields) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label for="area" class="block text-sm font-semibold text-gray-700">Carpet Area (in Sq. Mtr) <span class="text-red-500">*</span></label>
+            <input name="area" type="number" min="0" step="0.00001" id="PropArea" required class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 text-sm font-medium placeholder-gray-400 focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200 outline-none" placeholder="Enter Carpet Area">
+          </div>
+
+          <div class="space-y-2">
+            <label for="depreciation" class="block text-sm font-semibold text-gray-700">Property Age (in Years) <span class="text-red-500">*</span></label>
+            <input name="depghas" type="number" min="0" id="depghas" required class="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 text-sm font-medium placeholder-gray-400 focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200 outline-none" placeholder="Enter years">
+          </div>
+        </div>
+
+        <!-- Button Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button type="button" onclick="resetForm()" class="h-12 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center space-x-2">
+            <i class='bx bx-refresh text-lg'></i>
+            <span>RESET</span>
+          </button>
+          <button type="button" onclick="validateAndCalculate()" class="h-12 bg-primary hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center space-x-2">
+            <i class='bx bx-calculator text-lg'></i>
+            <span>CALCULATE</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection" class="hidden space-y-6 animate-fade-in">
+      <!-- Results Header -->
+      <div class="text-center space-y-3">
+        <div class="w-14 h-14 bg-accent bg-opacity-10 rounded-full flex items-center justify-center mx-auto">
+                    <i class='bx bx-check text-accent text-2xl'></i>
+                </div>
+       <h2 class="text-2xl font-bold text-gray-900 text-enhanced">Valuation Complete</h2>
+       <p class="text-gray-600 text-base reading-enhanced">Here's your detailed breakdown</p>
+        <div class="flex items-center justify-center space-x-4">
+          <button onclick="goBackToForm()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 text-sm">
+            <i class='bx bx-arrow-back text-base'></i>
+            <span>Back to Form</span>
+          </button>
+          <button id="showStampDuty" class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 flex items-center space-x-2 text-sm">
+            <i class='bx bx-calculator text-base'></i>
+            <span>Stamp Duty</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ✅ UPDATED: Shop Valuation Table -->
+      <div class="bg-white rounded-xl p-0 shadow-card">
+        <div id="sharableDiv">
+          <table class="valuation-table">
+            <tr>
+              <th colspan="4">E- Valuation <span style="float: right;" id="printDate">date</span></th>
+            </tr>
+            <tr>
+              <td colspan="4">Valuation Year: <b>2025</b></td>
+            </tr>
+            <tr>
+              <td>District: <b>Raigad</b></td>
+              <td>Taluka: <b>Panvel</b></td>
+              <td colspan="2">Type: <b>Shop</b></td>
+            </tr>
+            <tr>
+              <td colspan="4">Village: <b>Kharghar CIDCO Sec. No. <span id="SecNo">34</span></b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Construction Type: <b>RCC</b></td>
+              <td colspan="2">Plot No./Survey No. <b>NA</b></td>
+            </tr>
+            <tr>
+              <td colspan="4" style="background: #e6f3ff; color: #0066FF;"><b>Rates Applicable (Per Sq. Mt)</b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Shop: <br><b><span id="PropValue">98,900</span></b></td>
+              <td colspan="2">Open Land: <br><b><span id="LandValue">35,100</span></b></td>
+            </tr>
+            <tr>
+              <td colspan="4" style="background: #e6f3ff; color: #0066FF;"><b>Property Details</b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Built-up Area</td>
+              <td colspan="2"><b><span id="CArea">76.02</span> m²</b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Floor Number</td>
+              <td colspan="2"><b><span id="flrN">Ground Floor</span></b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Property Age (in years)</td>
+              <td colspan="2"><b><span id="ghasara1">11</span>y</b></td>
+            </tr>
+            <tr>
+              <td colspan="4" style="background: #e6f3ff; color: #0066FF;"><b>Valuation Details</b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Applicable Rate</td>
+              <td colspan="2"><b><span id="AppRate">98,484</span></b></td>
+            </tr>
+            <tr>
+              <td colspan="2">Depreciation</td>
+              <td colspan="2"><b><span id="ghasara2">11</span>%</b></td>
+            </tr>
+            <tr style="background: #fee2e2;">
+              <td><b>Total</b></td>
+              <td colspan="3"><b><span id="totalN" style="color: #dc2626;">₹72,67,300</span></b></td>
+            </tr>
+            <tr>
+              <td>in Words</td>
+              <td colspan="3"><b><span id="totalW">Seventy Two Lacs Sixty Seven Thousand Three Hundred</span> Only</b></td>
+            </tr>
+            <tr>
+              <td colspan="4" class="note"><b>Note: </b>Value is rounded to the next 100.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- ✅ FIXED: Share Button with proper BoxIcons share icon -->
+      <div class="text-center">
+        <button id="share" class="bg-gradient-to-r from-accent to-emerald-500 hover:from-emerald-500 hover:to-emerald-600 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 mx-auto">
+          <i class='bx bx-share-alt text-lg'></i>
+          <span>SHARE RESULTS</span>
+        </button>
+      </div>
+    </div>
   </div>
- <center>
-   <button id="share">
-   <span class="material-symbols-outlined">share</span>
-   <span>SHARE</span>
-  </button><br><br>
-</center>
-<div id="footer">
-     <p>Developed By <b>Yasir Divde</b></p>
- </div>
+
+  <!-- Enhanced Fixed Footer -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+    <div class="max-w-4xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-center space-x-3">
+        <div class="flex items-center space-x-2">
+          <div class="w-2 h-2 bg-primary rounded-full"></div>
+          <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+        </div>
+        <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+        <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+        <span class="text-gray-500 text-xs">v2.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript with ALL FIXES -->
+  <script src="shop.js"></script>
+  <script>
+    function formatIndianNumber(num) {
+        let parts = num.toString().split('.');
+        let integerPart = parts[0];
+        let decimalPart = parts[1] ? '.' + parts[1] : '';
+        
+        let lastThreeDigits = integerPart.slice(-3);
+        let otherDigits = integerPart.slice(0, -3);
+        
+        if (otherDigits) {
+            lastThreeDigits = ',' + lastThreeDigits;
+        }
+        
+        return otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThreeDigits + decimalPart;
+    }
+    function numberToWords(num) {
+        const units = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+        const teens = ["", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+        const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+        const scales = ["", "Thousand", "Lakh", "Crore"];
+
+        let words = [];
+
+        if (num === 0) return "Zero";
+
+        let chunks = [];
+        chunks.push(num % 1000);
+        num = Math.floor(num / 1000);
+
+        while (num > 0) {
+            chunks.push(num % 100);
+            num = Math.floor(num / 100);
+        }
+
+        chunks = chunks.reverse();
+
+        for (let i = 0; i < chunks.length; i++) {
+            let chunk = chunks[i];
+
+            if (chunk > 0) {
+                let chunkWords = [];
+
+                if (Math.floor(chunk / 100) > 0) {
+                    chunkWords.push(units[Math.floor(chunk / 100)] + " Hundred");
+                    chunk %= 100;
+                }
+
+                if (chunk > 10 && chunk < 20) {
+                    chunkWords.push(teens[chunk - 10]);
+                } else {
+                    if (Math.floor(chunk / 10) > 0) {
+                        chunkWords.push(tens[Math.floor(chunk / 10)]);
+                    }
+                    if (chunk % 10 > 0) {
+                        chunkWords.push(units[chunk % 10]);
+                    }
+                }
+
+                if (scales[chunks.length - 1 - i]) {
+                    chunkWords.push(scales[chunks.length - 1 - i]);
+                }
+
+                words.push(chunkWords.join(" "));
+            }
+        }
+
+        return words.join(" ").trim();
+    }
+
+    function resetForm() {
+        document.querySelector("select[name='sector']").value = "";
+        document.querySelector("input[name='area']").value = "";
+        document.querySelector("input[name='depghas']").value = "";
+    }
+
+    function goBackToForm() {
+        document.getElementById("resultsSection").classList.add("hidden");
+        document.getElementById("resultsSection").style.display = "none";
+        document.getElementById("valform").style.display = "block";
+    }
+
+    // Form validation function with decimal precision validation
+    function validateAndCalculate() {
+        const form = document.getElementById('valuationForm');
+        
+        // Get the area input for additional validation
+        const shopArea = document.getElementById('PropArea');
+        
+        // Function to validate decimal places
+        function validateDecimalPlaces(input, maxDecimals) {
+            const value = input.value;
+            if (value && value.includes('.')) {
+                const decimalPart = value.split('.')[1];
+                if (decimalPart && decimalPart.length > maxDecimals) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        // Check HTML5 validation first
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        
+        // Check decimal places for shop area (max 5)
+        if (!validateDecimalPlaces(shopArea, 5)) {
+            shopArea.setCustomValidity('Shop area can have maximum 5 decimal places');
+            shopArea.reportValidity();
+            return;
+        } else {
+            shopArea.setCustomValidity('');
+        }
+        
+        // All validations passed, proceed with calculation
+        stamp();
+    }
+
+    // ✅ NEW: Function to update agreement value in modal
+    function updateStampDutyModal() {
+        // Get the total value from the valuation table
+        const totalElement = document.getElementById('totalN');
+        const agreementValueElement = document.getElementById('agreementValue');
+        
+        if (totalElement && agreementValueElement) {
+            // Copy the total value to agreement value
+            agreementValueElement.textContent = totalElement.textContent;
+        }
+    }
+  </script>
+<script>
+// ✅ FIXED: Main share button functionality with proper icon
+document.getElementById('share').addEventListener('click', async function () {
+    const divToShare = document.getElementById('sharableDiv');
+    const originalPadding = divToShare.style.padding || "0px";
+    
+    // Add extra padding for cleaner image borders
+    divToShare.style.padding = "10px";
+
+    try {
+        // Capture high-quality image
+        const canvas = await html2canvas(divToShare, {
+            scale: 3,
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: '#ffffff',
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: document.documentElement.offsetWidth,
+            windowHeight: document.documentElement.offsetHeight
+        });
+
+        // Ensure image smoothing for sharper output
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+
+        // Convert to Blob for sharing/downloading
+        canvas.toBlob(async (blob) => {
+            if (!blob) throw new Error("Failed to create image blob");
+
+            const file = new File([blob], 'shop-valuation-report.png', { type: 'image/png' });
+
+            // Try Web Share API
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Shop Valuation Report',
+                        text: 'Ready Reckoner Shop Valuation',
+                    });
+                } catch (shareError) {
+                    console.warn("Share cancelled or failed, downloading instead:", shareError);
+                    downloadImage(blob);
+                }
+            } else {
+                // Fallback to download
+                downloadImage(blob);
+            }
+        }, 'image/png', 1.0);
+
+    } catch (error) {
+        console.error('Error generating image:', error);
+        alert('Error generating image. Please try again.');
+    } finally {
+        // Always reset padding
+        divToShare.style.padding = originalPadding;
+    }
+});
+
+// ✅ FIXED: Modal snapshot functionality - excludes close button
+document.getElementById('modalSnapshotBtn').addEventListener('click', async function () {
+    const modalContent = document.getElementById('modalContent');
+    const closeButton = document.getElementById('closeModalBtn');
+    
+    // Temporarily hide the close button
+    const originalDisplay = closeButton ? closeButton.style.display : '';
+    if (closeButton) {
+        closeButton.style.display = 'none';
+    }
+    
+    try {
+        // Capture high-quality image of modal content without close button
+        const canvas = await html2canvas(modalContent, {
+            scale: 4, // Extra high quality for clear text
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: '#ffffff',
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: document.documentElement.offsetWidth,
+            windowHeight: document.documentElement.offsetHeight
+        });
+
+        // Convert to Blob for sharing/downloading
+        canvas.toBlob(async (blob) => {
+            if (!blob) throw new Error("Failed to create modal image blob");
+
+            const file = new File([blob], 'shop-stamp-duty-calculator.png', { type: 'image/png' });
+
+            // Try Web Share API
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Shop Stamp Duty Calculator',
+                        text: 'Stamp Duty Breakdown for Shop Purchase',
+                    });
+                } catch (shareError) {
+                    console.warn("Modal share cancelled or failed, downloading instead:", shareError);
+                    downloadImage(blob, 'shop-stamp-duty-calculator.png');
+                }
+            } else {
+                // Fallback to download
+                downloadImage(blob, 'shop-stamp-duty-calculator.png');
+            }
+        }, 'image/png', 1.0);
+
+    } catch (error) {
+        console.error('Error generating modal image:', error);
+        alert('Error generating stamp duty image. Please try again.');
+    } finally {
+        // Always restore the close button visibility
+        if (closeButton) {
+            closeButton.style.display = originalDisplay;
+        }
+    }
+});
+
+// Enhanced download helper
+function downloadImage(blob, fileName = 'shop-valuation-report.png') {
+    const link = document.createElement('a');
+    link.download = fileName;
+    link.href = URL.createObjectURL(blob);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+}
+
+document.getElementById("helpButton").addEventListener('click', function() {
+    window.location.href = '../help.html';
+});
+</script>
+  <script>
+      const style = document.createElement('style');
+    document.head.appendChild(style);
+    style.sheet?.insertRule('body > div:last-child img { display: inline-block; }');
+    
+    const openModalBtn = document.getElementById('showStampDuty');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    // ✅ UPDATED: Show modal and update agreement value
+    openModalBtn.addEventListener('click', () => {
+      updateStampDutyModal(); // Update agreement value when modal opens
+      modalOverlay.classList.remove('hidden');
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.add('hidden');
+    });
+
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        modalOverlay.classList.add('hidden');
+      }
+    });
+  </script>
 </body>
-<script src="shop.js"></script>
-<script src="../data.js"></script>
-<script src="../share.js"></script>
-<script src="../modal.js"></script>
 </html>
