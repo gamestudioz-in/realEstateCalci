@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Scale Conversion - Sq. Ft ⇄ Sq. Mtr</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0066FF',
+            secondary: '#f8fafc',
+            accent: '#00D4AA',
+            text: '#1a202c',
+            muted: '#64748b'
+          },
+          fontFamily: {
+            'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+            'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+            'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      padding-top: 80px;
+      margin: 0;
+      padding-bottom: 80px;
+    }
+    .text-enhanced {
+        font-weight: 500;
+        letter-spacing: -0.02em;
+    }
+    .reading-enhanced {
+        line-height: 1.7;
+        letter-spacing: -0.005em;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-arrow-back text-white text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">Scale Conversion</span>
+                        <p class="text-gray-500 text-xs reading-enhanced">Square Feet ⇄ Square Meters</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-green-600 text-xs font-medium">Online</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <i class='bx bx-ruler text-white text-2xl'></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 text-enhanced mb-2">Scale Conversion</h1>
+            <p class="text-gray-600 reading-enhanced">Convert between Square Feet and Square Meters instantly</p>
+        </div>
+
+        <!-- Conversion Card -->
+        <div class="bg-white rounded-xl shadow-card p-8 max-w-2xl mx-auto">
+            <!-- Conversion Direction Toggle -->
+            <div class="flex items-center justify-center mb-8">
+                <div class="bg-gray-100 rounded-full p-1 flex items-center space-x-1">
+                    <button id="ftToMtrBtn" class="conversion-toggle active px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">
+                        Sq. Ft → Sq. Mtr
+                    </button>
+                    <button id="mtrToFtBtn" class="conversion-toggle px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">
+                        Sq. Mtr → Sq. Ft
+                    </button>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <label id="inputLabel" class="block text-sm font-semibold text-gray-700">Enter Area in Square Feet</label>
+                    <div class="relative">
+                        <input type="number" 
+                               id="inputValue" 
+                               class="w-full h-14 px-4 pr-20 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 text-lg font-medium placeholder-gray-400 focus:bg-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all duration-200 outline-none" 
+                               placeholder="0" 
+                               step="any">
+                        <span id="inputUnit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">sq ft</span>
+                    </div>
+                </div>
+
+                <!-- Conversion Arrow -->
+                <div class="flex items-center justify-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                        <i class='bx bx-transfer-alt text-purple-600 text-xl'></i>
+                    </div>
+                </div>
+
+                <!-- Result Section -->
+                <div class="space-y-2">
+                    <label id="resultLabel" class="block text-sm font-semibold text-gray-700">Result in Square Meters</label>
+                    <div class="relative">
+                        <div class="w-full h-14 px-4 pr-20 bg-purple-50 border border-purple-200 rounded-lg flex items-center">
+                            <span id="resultValue" class="text-purple-900 text-lg font-bold">0</span>
+                        </div>
+                        <span id="resultUnit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-purple-600 font-medium">sq m</span>
+                    </div>
+                </div>
+
+                <!-- Formula Display -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Conversion Formula:</h4>
+                    <p id="formulaText" class="text-sm text-gray-600">1 sq ft = 0.092903 sq m</p>
+                </div>
+
+                <!-- Quick Reference -->
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <div class="text-lg font-bold text-purple-900">1 sq ft</div>
+                        <div class="text-sm text-purple-600">0.092903 sq m</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <div class="text-lg font-bold text-purple-900">1 sq m</div>
+                        <div class="text-sm text-purple-600">10.7639 sq ft</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Fixed Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+                </div>
+                <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+                <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                <span class="text-gray-500 text-xs">v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .conversion-toggle.active {
+            background: white;
+            color: #7c3aed;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .conversion-toggle:not(.active) {
+            color: #6b7280;
+        }
+        .conversion-toggle:not(.active):hover {
+            color: #4b5563;
+        }
+    </style>
+
+    <script>
+        const ftToMtrBtn = document.getElementById('ftToMtrBtn');
+        const mtrToFtBtn = document.getElementById('mtrToFtBtn');
+        const inputValue = document.getElementById('inputValue');
+        const resultValue = document.getElementById('resultValue');
+        const inputLabel = document.getElementById('inputLabel');
+        const resultLabel = document.getElementById('resultLabel');
+        const inputUnit = document.getElementById('inputUnit');
+        const resultUnit = document.getElementById('resultUnit');
+        const formulaText = document.getElementById('formulaText');
+
+        let currentMode = 'ftToMtr'; // Default mode
+
+        // Conversion constants
+        const SQ_FT_TO_SQ_M = 0.092903;
+        const SQ_M_TO_SQ_FT = 10.7639;
+
+        // Toggle between conversion modes
+        function setConversionMode(mode) {
+            currentMode = mode;
+            
+            // Update button states
+            ftToMtrBtn.classList.toggle('active', mode === 'ftToMtr');
+            mtrToFtBtn.classList.toggle('active', mode === 'mtrToFt');
+
+            if (mode === 'ftToMtr') {
+                inputLabel.textContent = 'Enter Area in Square Feet';
+                resultLabel.textContent = 'Result in Square Meters';
+                inputUnit.textContent = 'sq ft';
+                resultUnit.textContent = 'sq m';
+                formulaText.textContent = '1 sq ft = 0.092903 sq m';
+            } else {
+                inputLabel.textContent = 'Enter Area in Square Meters';
+                resultLabel.textContent = 'Result in Square Feet';
+                inputUnit.textContent = 'sq m';
+                resultUnit.textContent = 'sq ft';
+                formulaText.textContent = '1 sq m = 10.7639 sq ft';
+            }
+
+            // Clear and recalculate
+            inputValue.value = '';
+            resultValue.textContent = '0';
+            convert();
+        }
+
+        // Conversion function
+        function convert() {
+            const input = parseFloat(inputValue.value) || 0;
+            let result = 0;
+
+            if (currentMode === 'ftToMtr') {
+                result = input * SQ_FT_TO_SQ_M;
+            } else {
+                result = input * SQ_M_TO_SQ_FT;
+            }
+
+            // Format result to 6 decimal places and remove trailing zeros
+            resultValue.textContent = result === 0 ? '0' : parseFloat(result.toFixed(6)).toString();
+        }
+
+        // Event listeners
+        ftToMtrBtn.addEventListener('click', () => setConversionMode('ftToMtr'));
+        mtrToFtBtn.addEventListener('click', () => setConversionMode('mtrToFt'));
+        inputValue.addEventListener('input', convert);
+
+        // Initialize
+        setConversionMode('ftToMtr');
+    </script>
+</body>
+</html>
