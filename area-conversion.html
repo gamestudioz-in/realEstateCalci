@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Area Conversion - Carpet ⇄ Built-up</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0066FF',
+            secondary: '#f8fafc',
+            accent: '#00D4AA',
+            text: '#1a202c',
+            muted: '#64748b'
+          },
+          fontFamily: {
+            'sans': ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+            'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+            'focus': '0 0 0 3px rgba(0, 102, 255, 0.15)',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      padding-top: 80px;
+      margin: 0;
+      padding-bottom: 80px;
+    }
+    .text-enhanced {
+        font-weight: 500;
+        letter-spacing: -0.02em;
+    }
+    .reading-enhanced {
+        line-height: 1.7;
+        letter-spacing: -0.005em;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans antialiased">
+    <!-- Fixed Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm group">
+                        <i class='bx bx-arrow-back text-white text-lg group-hover:-translate-x-0.5 transition-transform duration-200'></i>
+                    </a>
+                    <div>
+                        <span class="text-gray-800 font-semibold text-base reading-enhanced">Area Conversion</span>
+                        <p class="text-gray-500 text-xs reading-enhanced">Carpet Area ⇄ Built-up Area</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-green-600 text-xs font-medium">Online</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <i class='bx bx-expand text-white text-2xl'></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 text-enhanced mb-2">Area Conversion</h1>
+            <p class="text-gray-600 reading-enhanced">Convert between Carpet Area and Built-up Area using industry standards</p>
+        </div>
+
+        <!-- Conversion Card -->
+        <div class="bg-white rounded-xl shadow-card p-8 max-w-2xl mx-auto">
+            <!-- Conversion Direction Toggle -->
+            <div class="flex items-center justify-center mb-8">
+                <div class="bg-gray-100 rounded-full p-1 flex items-center space-x-1">
+                    <button id="carpetToBuiltBtn" class="conversion-toggle active px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">
+                        Carpet → Built-up
+                    </button>
+                    <button id="builtToCarpetBtn" class="conversion-toggle px-4 py-2 rounded-full text-sm font-medium transition-all duration-200">
+                        Built-up → Carpet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="space-y-6">
+                <div class="space-y-2">
+                    <label id="inputLabel" class="block text-sm font-semibold text-gray-700">Enter Carpet Area</label>
+                    <div class="relative">
+                        <input type="number" 
+                               id="inputValue" 
+                               class="w-full h-14 px-4 pr-20 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 text-lg font-medium placeholder-gray-400 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all duration-200 outline-none" 
+                               placeholder="0" 
+                               step="any">
+                        <span id="inputUnit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">sq m</span>
+                    </div>
+                </div>
+
+                <!-- Conversion Arrow -->
+                <div class="flex items-center justify-center">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                        <i class='bx bx-math text-orange-600 text-xl'></i>
+                    </div>
+                </div>
+
+                <!-- Result Section -->
+                <div class="space-y-2">
+                    <label id="resultLabel" class="block text-sm font-semibold text-gray-700">Built-up Area</label>
+                    <div class="relative">
+                        <div class="w-full h-14 px-4 pr-20 bg-orange-50 border border-orange-200 rounded-lg flex items-center">
+                            <span id="resultValue" class="text-orange-900 text-lg font-bold">0</span>
+                        </div>
+                        <span id="resultUnit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-orange-600 font-medium">sq m</span>
+                    </div>
+                </div>
+
+                <!-- Formula Display -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-2">Conversion Formula:</h4>
+                    <p id="formulaText" class="text-sm text-gray-600 mb-2">Built-up Area = Carpet Area + 20%</p>
+                    <p id="formulaExample" class="text-xs text-gray-500">Example: 41.467 + 20% = 49.76</p>
+                </div>
+
+                <!-- Calculation Breakdown -->
+                <div id="calculationBreakdown" class="bg-orange-50 rounded-lg p-4 hidden">
+                    <h4 class="text-sm font-semibold text-orange-700 mb-2">Calculation Breakdown:</h4>
+                    <div class="space-y-1 text-sm text-orange-600">
+                        <div id="step1" class="flex justify-between">
+                            <span>Input:</span>
+                            <span id="inputStep">0 sq m</span>
+                        </div>
+                        <div id="step2" class="flex justify-between">
+                            <span>Loading (20%):</span>
+                            <span id="loadingStep">0 sq m</span>
+                        </div>
+                        <div class="border-t border-orange-200 pt-1 mt-2">
+                            <div class="flex justify-between font-medium">
+                                <span>Result:</span>
+                                <span id="resultStep">0 sq m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Industry Standard Info -->
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="flex items-start space-x-2">
+                        <i class='bx bx-info-circle text-blue-600 mt-0.5'></i>
+                        <div class="text-sm">
+                            <p class="text-blue-800 font-medium mb-1">Industry Standard</p>
+                            <p class="text-blue-700">Built-up area typically includes carpet area plus 20% for walls, corridors, and common areas. This calculator uses precise mathematical formulas for accurate conversions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Fixed Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 backdrop-blur-sm bg-opacity-95">
+        <div class="max-w-4xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-gray-600 text-sm font-medium reading-enhanced">Crafted with precision by</span>
+                </div>
+                <span class="text-gray-900 font-semibold text-sm text-enhanced">Yasir Divde</span>
+                <div class="w-1.5 h-1.5 bg-gray-300 rounded-full"></div>
+                <span class="text-gray-500 text-xs">v2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .conversion-toggle.active {
+            background: white;
+            color: #ea580c;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .conversion-toggle:not(.active) {
+            color: #6b7280;
+        }
+        .conversion-toggle:not(.active):hover {
+            color: #4b5563;
+        }
+    </style>
+
+    <script>
+        const carpetToBuiltBtn = document.getElementById('carpetToBuiltBtn');
+        const builtToCarpetBtn = document.getElementById('builtToCarpetBtn');
+        const inputValue = document.getElementById('inputValue');
+        const resultValue = document.getElementById('resultValue');
+        const inputLabel = document.getElementById('inputLabel');
+        const resultLabel = document.getElementById('resultLabel');
+        const formulaText = document.getElementById('formulaText');
+        const formulaExample = document.getElementById('formulaExample');
+        const calculationBreakdown = document.getElementById('calculationBreakdown');
+        const inputStep = document.getElementById('inputStep');
+        const loadingStep = document.getElementById('loadingStep');
+        const resultStep = document.getElementById('resultStep');
+
+        let currentMode = 'carpetToBuilt'; // Default mode
+
+        // Toggle between conversion modes
+        function setConversionMode(mode) {
+            currentMode = mode;
+            
+            // Update button states
+            carpetToBuiltBtn.classList.toggle('active', mode === 'carpetToBuilt');
+            builtToCarpetBtn.classList.toggle('active', mode === 'builtToCarpet');
+
+            if (mode === 'carpetToBuilt') {
+                inputLabel.textContent = 'Enter Carpet Area';
+                resultLabel.textContent = 'Built-up Area';
+                formulaText.textContent = 'Built-up Area = Carpet Area + 20%';
+                formulaExample.textContent = 'Example: 41.467 + 20% = 49.76';
+            } else {
+                inputLabel.textContent = 'Enter Built-up Area';
+                resultLabel.textContent = 'Carpet Area';
+                formulaText.textContent = 'Carpet Area = Built-up Area ÷ 1.2';
+                formulaExample.textContent = 'Example: 49.76 ÷ 1.2 = 41.467';
+            }
+
+            // Clear and recalculate
+            inputValue.value = '';
+            resultValue.textContent = '0';
+            calculationBreakdown.classList.add('hidden');
+            convert();
+        }
+
+        // Conversion function with correct formulas
+        function convert() {
+            const input = parseFloat(inputValue.value) || 0;
+            let result = 0;
+            let loading = 0;
+
+            if (input === 0) {
+                resultValue.textContent = '0';
+                calculationBreakdown.classList.add('hidden');
+                return;
+            }
+
+            if (currentMode === 'carpetToBuilt') {
+                // Built-up = Carpet + 20%
+                loading = input * 0.2;
+                result = input + loading;
+            } else {
+                // Carpet = Built-up ÷ 1.2 (correct inverse calculation)
+                result = input / 1.2;
+                loading = input - result;
+            }
+
+            // Format result to 3 decimal places and remove trailing zeros
+            resultValue.textContent = parseFloat(result.toFixed(3)).toString();
+
+            // Show calculation breakdown
+            calculationBreakdown.classList.remove('hidden');
+            inputStep.textContent = `${parseFloat(input.toFixed(3))} sq m`;
+            
+            if (currentMode === 'carpetToBuilt') {
+                loadingStep.textContent = `+${parseFloat(loading.toFixed(3))} sq m`;
+            } else {
+                loadingStep.textContent = `-${parseFloat(loading.toFixed(3))} sq m`;
+            }
+            
+            resultStep.textContent = `${parseFloat(result.toFixed(3))} sq m`;
+        }
+
+        // Event listeners
+        carpetToBuiltBtn.addEventListener('click', () => setConversionMode('carpetToBuilt'));
+        builtToCarpetBtn.addEventListener('click', () => setConversionMode('builtToCarpet'));
+        inputValue.addEventListener('input', convert);
+
+        // Initialize
+        setConversionMode('carpetToBuilt');
+    </script>
+</body>
+</html>
