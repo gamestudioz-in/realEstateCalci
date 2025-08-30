@@ -41,7 +41,7 @@
             font-family: 'Inter', system-ui, sans-serif;
             line-height: 1.6;
             letter-spacing: -0.01em;
-            padding-top: 80px; /* Add padding for fixed navigation */
+            padding-top: 80px;
         }
         .text-enhanced {
             font-weight: 500;
@@ -68,10 +68,9 @@
             transform: translateY(-4px);
             box-shadow: 0 8px 30px -6px rgba(0, 0, 0, 0.15);
         }
-        /* Mobile compact styling */
         @media (max-width: 640px) {
             body {
-                padding-top: 75px; /* Adjust for mobile nav height */
+                padding-top: 75px;
             }
             .calculator-card {
                 padding: 1.5rem !important;
@@ -105,7 +104,7 @@
     <!-- Calculator Cards -->
     <div class="max-w-4xl mx-auto px-6 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
+
             <!-- Ready Reckoner Calculator -->
             <a href="homeRR.html" class="group">
                 <div class="calculator-card bg-white rounded-xl shadow-card hover:shadow-hover p-6 space-y-4 animate-slide-up">
@@ -126,7 +125,7 @@
                             <i class='bx bx-right-arrow-alt text-emerald-600 group-hover:translate-x-0.5 transition-transform duration-200'></i>
                         </div>
                     </div>
-                    
+
                     <!-- Description -->
                     <p class="text-gray-600 text-sm reading-enhanced">
                         Calculate property valuations based on government-approved ready reckoner rates for accurate assessments.
@@ -166,7 +165,7 @@
                             <i class='bx bx-right-arrow-alt text-primary group-hover:translate-x-0.5 transition-transform duration-200'></i>
                         </div>
                     </div>
-                    
+
                     <!-- Description -->
                     <p class="text-gray-600 text-sm reading-enhanced">
                         Calculate stamp duty and registration fees for Leave & License rental agreements with complete breakdown.
@@ -186,6 +185,62 @@
                 </div>
             </a>
 
+        </div>
+
+        <!-- ✅ NEW: Conversion Tools Section -->
+        <div class="mt-12">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 text-enhanced mb-2">Conversion Tools</h2>
+        </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Scale Conversion -->
+                <a href="scale-conversion.html" class="group">
+                    <div class="calculator-card bg-white rounded-xl shadow-card hover:shadow-hover p-6 space-y-4 animate-slide-up" style="animation-delay: 0.4s;">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class='bx bx-ruler text-white text-lg'></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 text-enhanced group-hover:text-purple-600 transition-colors duration-200">
+                                        Scale Conversion
+                                    </h3>
+                                    <p class="text-xs text-purple-600 font-medium">Sq. Ft ⇄ Sq. Mtr</p>
+                                </div>
+                            </div>
+                            <div class="w-6 h-6 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors duration-200">
+                                <i class='bx bx-right-arrow-alt text-purple-600 group-hover:translate-x-0.5 transition-transform duration-200'></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+
+                <!-- Area Conversion -->
+                <a href="area-conversion.html" class="group">
+                    <div class="calculator-card bg-white rounded-xl shadow-card hover:shadow-hover p-6 space-y-4 animate-slide-up" style="animation-delay: 0.6s;">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class='bx bx-expand text-white text-lg'></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-900 text-enhanced group-hover:text-orange-600 transition-colors duration-200">
+                                        Area Conversion
+                                    </h3>
+                                    <p class="text-xs text-orange-600 font-medium">Carpet ⇄ Built-up</p>
+                                </div>
+                            </div>
+                            <div class="w-6 h-6 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors duration-200">
+                                <i class='bx bx-right-arrow-alt text-orange-600 group-hover:translate-x-0.5 transition-transform duration-200'></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
